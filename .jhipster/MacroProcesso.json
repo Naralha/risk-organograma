@@ -1,0 +1,58 @@
+{
+  "applications": ["riskcomplianceservice"],
+  "changelogDate": "20220708123847",
+  "clientRootFolder": "riskcomplianceservice",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "macro_processo",
+  "fields": [
+    {
+      "fieldName": "idnVarMacroProcesso",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nVarNomeMacroProcesso",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnVarEmpresa",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnVarUsuario",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "riskcomplianceservice",
+  "name": "MacroProcesso",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "macroProcessoOrganograma",
+      "otherEntityRelationshipName": "macroProcesso",
+      "relationshipName": "macroProcessoOrganograma",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "empresa",
+      "otherEntityRelationshipName": "macroProcesso",
+      "relationshipName": "empresa",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "usuario",
+      "otherEntityRelationshipName": "macroProcesso",
+      "relationshipName": "usuario",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

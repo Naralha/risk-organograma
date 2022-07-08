@@ -1,0 +1,94 @@
+{
+  "applications": ["riskcomplianceservice"],
+  "changelogDate": "20220708123247",
+  "clientRootFolder": "riskcomplianceservice",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "empresa",
+  "fields": [
+    {
+      "fieldName": "idnVarEmpresa",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nVarNome",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nVarDescricao",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "riskcomplianceservice",
+  "name": "Empresa",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "clienteExterno",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "clienteExterno",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "fornecedorExterno",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "fornecedorExterno",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "complianceExterno",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "complianceExterno",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "complianceInterno",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "complianceInterno",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "funcionario",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "funcionario",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "macroProcesso",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "macroProcesso",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "macroProcessoOrganograma",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "macroProcessoOrganograma",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "organograma",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "organograma",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "processo",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "processo",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "usuario",
+      "otherEntityRelationshipName": "empresa",
+      "relationshipName": "usuario",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

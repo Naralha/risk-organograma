@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity MacroProcessoOrganograma.
+    -->
+    <changeSet id="20220708123947-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="empresa_id"
+                                 baseTableName="macro_processo_organograma"
+                                 constraintName="fk_macro_processo_organograma__empresa_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="empresa"/>
+
+        <addForeignKeyConstraint baseColumnNames="usuario_id"
+                                 baseTableName="macro_processo_organograma"
+                                 constraintName="fk_macro_processo_organograma__usuario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="usuario"/>
+
+        <addForeignKeyConstraint baseColumnNames="macro_processo_id"
+                                 baseTableName="macro_processo_organograma"
+                                 constraintName="fk_macro_processo_organograma__macro_processo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="macro_processo"/>
+
+        <addForeignKeyConstraint baseColumnNames="organograma_id"
+                                 baseTableName="macro_processo_organograma"
+                                 constraintName="fk_macro_processo_organograma__organograma_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="organograma"/>
+    </changeSet>
+</databaseChangeLog>

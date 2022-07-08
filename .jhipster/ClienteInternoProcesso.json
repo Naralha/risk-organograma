@@ -1,0 +1,53 @@
+{
+  "applications": ["riskcomplianceservice"],
+  "changelogDate": "20220708122747",
+  "clientRootFolder": "riskcomplianceservice",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "cliente_interno_processo",
+  "fields": [
+    {
+      "fieldName": "idnVarProcesso",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnVarOrganograma",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnvarUsuario",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "riskcomplianceservice",
+  "name": "ClienteInternoProcesso",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "organograma",
+      "otherEntityRelationshipName": "clienteInternoProcesso",
+      "relationshipName": "organograma",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "processo",
+      "otherEntityRelationshipName": "clienteInternoProcesso",
+      "relationshipName": "processo",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "usuario",
+      "otherEntityRelationshipName": "clienteInternoProcesso",
+      "relationshipName": "usuario",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

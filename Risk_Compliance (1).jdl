@@ -1,0 +1,203 @@
+application {
+  config {
+    baseName riskcomplianceservice
+    packageName io.sld.riskcomplianceservice
+    applicationType microservice
+    authenticationType jwt
+    prodDatabaseType mssql
+    buildTool maven
+  }
+
+  entities *
+}
+
+filter *
+paginate * with pagination
+dto * with mapstruct
+
+relationship OneToMany {
+	Empresa to ClienteExterno,
+	Empresa to FornecedorExterno,
+    Empresa to ComplianceExterno,
+    Empresa to ComplianceInterno,
+    Empresa to Funcionario,
+    Empresa to MacroProcesso,
+    Empresa to MacroProcessoOrganograma,
+    Empresa to Organograma,
+	Empresa to Processo,
+	Empresa to Usuario,
+	Usuario to ClienteExterno,
+	Usuario to FornecedorExterno,
+    Usuario to ComplianceExterno,
+    Usuario to ComplianceInterno,
+    Usuario to Funcionario,
+    Usuario to MacroProcesso,
+    Usuario to MacroProcessoOrganograma,
+    Usuario to Organograma,
+	Usuario to Processo,
+    MacroProcesso to MacroProcessoOrganograma,
+    Organograma to MacroProcessoOrganograma,
+    Usuario to MacroProcessoOrganograma,
+    ClienteExterno to ClienteExternoProcesso,
+    Processo to ClienteExternoProcesso,
+    Usuario to ClienteExternoProcesso,
+    ComplianceExterno to ComplianceExternoProcesso,
+    Processo to ComplianceExternoProcesso,
+    Usuario to ComplianceExternoProcesso,
+    FornecedorExterno to FornecedorExternoProcesso,
+    Processo to FornecedorExternoProcesso,
+    Usuario to FornecedorExternoProcesso,
+    Organograma to ClienteInternoProcesso,
+    Processo to ClienteInternoProcesso,
+    Usuario to ClienteInternoProcesso,
+    Funcionario to FuncionarioOrganograma,
+    Organograma to FuncionarioOrganograma,
+    Usuario to FuncionarioOrganograma,
+    ComplianceInterno to ComplianceInternoProcesso,
+    Processo to ComplianceInternoProcesso,
+    Usuario to ComplianceInternoProcesso,
+    Organograma to FornecedorInternoProcesso,
+    Processo to FornecedorInternoProcesso,
+    Usuario to FornecedorInternoProcesso
+    
+}
+
+entity ClienteExterno{
+	idnVarClienteExterno String required,
+	nVarNome String required,
+	nVarDescricao String ,
+	idnVarEmpresa String required,
+	idnvarUsuario String required
+}
+
+entity ClienteExternoProcesso{
+	idnVarClienteExterno String required,
+	idnVarProcesso String required,
+	idnvarUsuario String required
+}
+	
+entity ClienteInternoProcesso{
+	idnVarProcesso String required,
+	idnVarOrganograma String required,
+	idnvarUsuario String required
+}
+
+entity ComplianceExterno{
+	idnVarComplianceExterno String required,
+	nVarNome String required,
+	nVarDescricao String ,
+	idnVarEmpresa String required,
+	idnvarUsuario String required
+}
+
+entity ComplianceExternoProcesso{
+	idnVarComplianceExterno String required,
+	idnVarProcesso String required,
+	idnvarUsuario String required
+}
+
+entity ComplianceInterno{
+	idnVarComplianteInterno String required,
+	nVarNome String required,
+	nVarDescricao String ,
+	idnVarEmpresa String required,
+	idnvarUsuario String required
+}
+
+entity ComplianceInternoProcesso{
+	idnVarComplianceInterno String required,
+	idnVarProcesso String required,
+	idnvarUsuario String required
+}
+
+entity Empresa{
+	idnVarEmpresa String required,
+	nVarNome String required,
+	nVarDescricao String 
+}
+
+entity FornecedorExterno{
+	idnVarFornecedorExterno String required,
+	nVarNome String required,
+	nVarDescricao String ,
+	idnVarEmpresa String required,
+	idnvarUsuario String required
+}
+
+entity FornecedorExternoProcesso{
+	idnVarFornecedorExterno String required,
+	idnVarProcesso String required,
+	idnvarUsuario String required
+}
+
+entity FornecedorInternoProcesso{
+	idnVarOrganograma String required,
+	idnVarProcesso String required,
+	idnvarUsuario String required
+}
+
+entity Funcionario{
+	idnVarFuncionario String required,
+	nVarNome String required,
+	nVarEmail String required,
+	nVarDescricao String ,
+	idnVarEmpresa String required,
+	idnvarUsuario String required
+}
+
+entity FuncionarioOrganograma{
+	idnVarFuncionario String required,
+	idnVarOrganograma String required,
+	idnvarUsuario String required
+}
+
+entity MacroProcesso{
+	idnVarMacroProcesso String required,
+	nVarNomeMacroProcesso String required,
+	idnVarEmpresa String required,
+	idnVarUsuario String required
+}
+
+entity MacroProcessoOrganograma{
+	idnVarMacroProcesso String required,
+	idnVarOrganograma String required,
+	idnVarProcesso String required,
+	idnVarUsuario String required,
+	idnVarEmpresa String required,
+	idnVarUsuarioCadastro String 
+}
+
+entity Organograma{
+	idnVarOrganograma String required,
+	idnVarEmpresa String required,
+	nVarNome String required,
+	nVarDescricao String ,
+	idnVarPaiOrganograma String,
+	idnvarUsuario String required,
+	idnVarRoofTop String required
+}
+
+entity Processo{
+	idnVarProcesso String required,
+	idVarMacroProcesso String required,
+	nVarNomeProcesso String required,
+	nVarObjetivoProcesso String required,
+	nVarLimitrofeInicial String ,
+	nVarLimitrofeFinal String ,
+	nVarPathFile String ,
+	nVarEntradas String ,
+	nVarSaidas String ,
+	dtInicio Instant required,
+	dtFim Instant ,
+	idnVarEmpresa String required,
+	idnvarUsuario String required
+}
+
+entity Usuario{
+	idnVarUsuario String required,
+	nVarNome String required,
+	idnVarEmpresa String,
+	idnVarUsuarioCadastro String ,
+	nVarSenha String required
+}
+

@@ -1,0 +1,73 @@
+{
+  "applications": ["riskcomplianceservice"],
+  "changelogDate": "20220708123947",
+  "clientRootFolder": "riskcomplianceservice",
+  "databaseType": "sql",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "macro_processo_organograma",
+  "fields": [
+    {
+      "fieldName": "idnVarMacroProcesso",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnVarOrganograma",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnVarProcesso",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnVarUsuario",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnVarEmpresa",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "idnVarUsuarioCadastro",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": true,
+  "microserviceName": "riskcomplianceservice",
+  "name": "MacroProcessoOrganograma",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "empresa",
+      "otherEntityRelationshipName": "macroProcessoOrganograma",
+      "relationshipName": "empresa",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "usuario",
+      "otherEntityRelationshipName": "macroProcessoOrganograma",
+      "relationshipName": "usuario",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "macroProcesso",
+      "otherEntityRelationshipName": "macroProcessoOrganograma",
+      "relationshipName": "macroProcesso",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "organograma",
+      "otherEntityRelationshipName": "macroProcessoOrganograma",
+      "relationshipName": "organograma",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
