@@ -1,0 +1,46 @@
+spring:
+  version: 0.1
+  application:
+    name: risk-project
+  config:
+    import: "optional:configserver:http://localhost:8088"
+  datasource:
+    url: jdbc:h2:file:./target/h2db/db/usermanagementservice;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: usermanagementservice
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      # disable spring boot built-in h2-console since we start it manually with correct configuration
+      enabled: true
+  liquibase:
+    # Remove 'faker' if you do not want the sample data to be loaded automatically
+    contexts: dev, faker
+    change-log: classpath:liquibase/master.xml
+
+#OpenApi configurations
+springdoc:
+  pathsToMatch: /api/**
+  swagger-ui:
+    disable-swagger-default-url: true
+    tags-sorter: alpha
+    operations-sorter: alpha
+
+#Swagger configurations
+swagger:
+  title: ${spring.application.name} API
+  description: ${spring.application.name} API documentation
+  version: ${application.version}
+  terms-of-service-url:
+  contact-name:
+  contact-url:
+  contact-email:
+  license:
+  license-url:
+  external-documentation:
+  external-documentation-url:
+
+
+

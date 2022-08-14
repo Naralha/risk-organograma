@@ -2,7 +2,8 @@ package io.sld.riskcomplianceservice.service.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import io.sld.riskcomplianceservice.web.rest.TestUtil;
+import io.sld.riskcomplianceservice.domain.service.dto.ComplianceExternoDTO;
+import io.sld.riskcomplianceservice.resource.TestUtil;
 import org.junit.jupiter.api.Test;
 
 class ComplianceExternoDTOTest {
