@@ -32,6 +32,7 @@ import io.sld.riskcomplianceservice.resource.utils.ResponseUtil;
  * REST controller for managing {@link Usuario}.
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class UsuarioResource {
 
