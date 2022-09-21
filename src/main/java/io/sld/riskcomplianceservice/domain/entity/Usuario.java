@@ -42,8 +42,8 @@ public class Usuario implements Serializable {
     @Column(name = "n_var_nome", nullable = false)
     private String nVarNome;
 
-    @Column(name = "idn_var_empresa")
-    private String idnVarEmpresa;
+//    @Column(name = "idn_var_empresa")
+//    private String idnVarEmpresa;
 
     @Column(name = "idn_var_usuario_cadastro")
     private String idnVarUsuarioCadastro;
@@ -202,7 +202,7 @@ public class Usuario implements Serializable {
             "id=" + getId() +
             ", idnVarUsuario='" + getIdnVarUsuario() + "'" +
             ", nVarNome='" + getNVarNome() + "'" +
-            ", idnVarEmpresa='" + getIdnVarEmpresa() + "'" +
+//            ", idnVarEmpresa='" + getIdnVarEmpresa() + "'" +
             ", idnVarUsuarioCadastro='" + getIdnVarUsuarioCadastro() + "'" +
             ", nVarSenha='" + getNVarSenha() + "'" +
             "}";

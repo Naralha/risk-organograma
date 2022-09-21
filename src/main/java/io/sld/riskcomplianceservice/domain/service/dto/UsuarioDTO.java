@@ -29,7 +29,7 @@ public class UsuarioDTO implements Serializable {
     @NotNull
     private String nVarNome;
 
-    private String idnVarEmpresa;
+//    private String idnVarEmpresa;
 
     private String idnVarUsuarioCadastro;
 
