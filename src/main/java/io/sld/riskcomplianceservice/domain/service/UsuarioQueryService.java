@@ -96,9 +96,9 @@ public class UsuarioQueryService extends QueryService<Usuario> {
             if (criteria.getnVarNome() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getnVarNome(), Usuario_.nVarNome));
             }
-            if (criteria.getIdnVarEmpresa() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getIdnVarEmpresa(), Usuario_.idnVarEmpresa));
-            }
+//            if (criteria.getIdnVarEmpresa() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getIdnVarEmpresa(), Usuario_.idnVarEmpresa));
+//            }
             if (criteria.getIdnVarUsuarioCadastro() != null) {
                 specification =
                     specification.and(buildStringSpecification(criteria.getIdnVarUsuarioCadastro(), Usuario_.idnVarUsuarioCadastro));
