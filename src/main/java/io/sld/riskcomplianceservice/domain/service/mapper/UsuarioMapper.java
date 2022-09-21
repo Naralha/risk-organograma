@@ -15,7 +15,8 @@ public interface UsuarioMapper extends EntityMapper<UsuarioDTO, Usuario> {
 
     @Mapping(target = "nVarSenha", source = "NVarSenha")
     @Mapping(target = "nVarNome", source = "NVarNome")
-    @Mapping(target = "empresa", source = "empresa", qualifiedByName = "empresaId")
+//    @Mapping(target = "empresa", source = "empresa.id", qualifiedByName = "empresaId")
+    @Mapping(target = "empresa.nVarNome", source = "empresa.NVarNome")
     UsuarioDTO toDto(Usuario s);
 
 
