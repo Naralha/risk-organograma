@@ -144,24 +144,24 @@ public class EmpresaQueryService extends QueryService<Empresa> {
                         )
                     );
             }
-            if (criteria.getMacroProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getMacroProcessoId(),
-                            root -> root.join(Empresa_.macroProcessos, JoinType.LEFT).get(MacroProcesso_.id)
-                        )
-                    );
-            }
-            if (criteria.getMacroProcessoOrganogramaId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getMacroProcessoOrganogramaId(),
-                            root -> root.join(Empresa_.macroProcessoOrganogramas, JoinType.LEFT).get(MacroProcessoOrganograma_.id)
-                        )
-                    );
-            }
+//            if (criteria.getMacroProcessoId() != null) {
+//                specification =
+//                    specification.and(
+//                        buildSpecification(
+//                            criteria.getMacroProcessoId(),
+//                            root -> root.join(Empresa_.macroProcessos, JoinType.LEFT).get(MacroProcesso_.id)
+//                        )
+//                    );
+//            }
+//            if (criteria.getMacroProcessoOrganogramaId() != null) {
+//                specification =
+//                    specification.and(
+//                        buildSpecification(
+//                            criteria.getMacroProcessoOrganogramaId(),
+//                            root -> root.join(Empresa_.macroProcessoOrganogramas, JoinType.LEFT).get(MacroProcessoOrganograma_.id)
+//                        )
+//                    );
+//            }
             if (criteria.getOrganogramaId() != null) {
                 specification =
                     specification.and(
@@ -171,12 +171,12 @@ public class EmpresaQueryService extends QueryService<Empresa> {
                         )
                     );
             }
-            if (criteria.getProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(criteria.getProcessoId(), root -> root.join(Empresa_.processos, JoinType.LEFT).get(Processo_.id))
-                    );
-            }
+//            if (criteria.getProcessoId() != null) {
+//                specification =
+//                    specification.and(
+//                        buildSpecification(criteria.getProcessoId(), root -> root.join(Empresa_.processos, JoinType.LEFT).get(Processo_.id))
+//                    );
+//            }
             if (criteria.getUsuarioId() != null) {
                 specification =
                     specification.and(
