@@ -6,16 +6,14 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import io.sld.riskcomplianceservice.IntegrationTest;
+import io.sld.riskcomplianceservice.TestUtil;
 import io.sld.riskcomplianceservice.domain.entity.ClienteExterno;
 import io.sld.riskcomplianceservice.domain.entity.ComplianceExterno;
 import io.sld.riskcomplianceservice.domain.entity.ComplianceInterno;
 import io.sld.riskcomplianceservice.domain.entity.Empresa;
 import io.sld.riskcomplianceservice.domain.entity.FornecedorExterno;
 import io.sld.riskcomplianceservice.domain.entity.Funcionario;
-import io.sld.riskcomplianceservice.domain.entity.MacroProcesso;
-import io.sld.riskcomplianceservice.domain.entity.MacroProcessoOrganograma;
 import io.sld.riskcomplianceservice.domain.entity.Organograma;
-import io.sld.riskcomplianceservice.domain.entity.Processo;
 import io.sld.riskcomplianceservice.domain.entity.Usuario;
 import io.sld.riskcomplianceservice.domain.repository.EmpresaRepository;
 import io.sld.riskcomplianceservice.domain.service.dto.EmpresaDTO;
@@ -29,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+//@WithMockUser
 class EmpresaResourceIT {
 
     private static final String DEFAULT_IDN_VAR_EMPRESA = "AAAAAAAAAA";
@@ -78,7 +76,7 @@ class EmpresaResourceIT {
      */
     public static Empresa createEntity(EntityManager em) {
         Empresa empresa = new Empresa()
-            .idnVarEmpresa(DEFAULT_IDN_VAR_EMPRESA)
+            .idNVarEmpresa(DEFAULT_IDN_VAR_EMPRESA)
             .nVarNome(DEFAULT_N_VAR_NOME)
             .nVarDescricao(DEFAULT_N_VAR_DESCRICAO);
         return empresa;
@@ -92,7 +90,7 @@ class EmpresaResourceIT {
      */
     public static Empresa createUpdatedEntity(EntityManager em) {
         Empresa empresa = new Empresa()
-            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
+            .idNVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
             .nVarNome(UPDATED_N_VAR_NOME)
             .nVarDescricao(UPDATED_N_VAR_DESCRICAO);
         return empresa;
@@ -118,8 +116,8 @@ class EmpresaResourceIT {
         assertThat(empresaList).hasSize(databaseSizeBeforeCreate + 1);
         Empresa testEmpresa = empresaList.get(empresaList.size() - 1);
         assertThat(testEmpresa.getIdnVarEmpresa()).isEqualTo(DEFAULT_IDN_VAR_EMPRESA);
-        assertThat(testEmpresa.getnVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
-        assertThat(testEmpresa.getnVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
+        assertThat(testEmpresa.getNVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
+        assertThat(testEmpresa.getNVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
     }
 
     @Test
@@ -164,7 +162,7 @@ class EmpresaResourceIT {
     void checknVarNomeIsRequired() throws Exception {
         int databaseSizeBeforeTest = empresaRepository.findAll().size();
         // set the field null
-        empresa.setnVarNome(null);
+        empresa.setNVarNome(null);
 
         // Create the Empresa, which fails.
         EmpresaDTO empresaDTO = empresaMapper.toDto(empresa);
@@ -593,57 +591,9 @@ class EmpresaResourceIT {
         defaultEmpresaShouldNotBeFound("funcionarioId.equals=" + (funcionarioId + 1));
     }
 
-    @Test
-    @Transactional
-    void getAllEmpresasByMacroProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        empresaRepository.saveAndFlush(empresa);
-        MacroProcesso macroProcesso;
-        if (TestUtil.findAll(em, MacroProcesso.class).isEmpty()) {
-            macroProcesso = MacroProcessoResourceIT.createEntity(em);
-            em.persist(macroProcesso);
-            em.flush();
-        } else {
-            macroProcesso = TestUtil.findAll(em, MacroProcesso.class).get(0);
-        }
-        em.persist(macroProcesso);
-        em.flush();
-        empresa.addMacroProcesso(macroProcesso);
-        empresaRepository.saveAndFlush(empresa);
-        Long macroProcessoId = macroProcesso.getId();
 
-        // Get all the empresaList where macroProcesso equals to macroProcessoId
-        defaultEmpresaShouldBeFound("macroProcessoId.equals=" + macroProcessoId);
 
-        // Get all the empresaList where macroProcesso equals to (macroProcessoId + 1)
-        defaultEmpresaShouldNotBeFound("macroProcessoId.equals=" + (macroProcessoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllEmpresasByMacroProcessoOrganogramaIsEqualToSomething() throws Exception {
-        // Initialize the database
-        empresaRepository.saveAndFlush(empresa);
-        MacroProcessoOrganograma macroProcessoOrganograma;
-        if (TestUtil.findAll(em, MacroProcessoOrganograma.class).isEmpty()) {
-            macroProcessoOrganograma = MacroProcessoOrganogramaResourceIT.createEntity(em);
-            em.persist(macroProcessoOrganograma);
-            em.flush();
-        } else {
-            macroProcessoOrganograma = TestUtil.findAll(em, MacroProcessoOrganograma.class).get(0);
-        }
-        em.persist(macroProcessoOrganograma);
-        em.flush();
-        empresa.addMacroProcessoOrganograma(macroProcessoOrganograma);
-        empresaRepository.saveAndFlush(empresa);
-        Long macroProcessoOrganogramaId = macroProcessoOrganograma.getId();
-
-        // Get all the empresaList where macroProcessoOrganograma equals to macroProcessoOrganogramaId
-        defaultEmpresaShouldBeFound("macroProcessoOrganogramaId.equals=" + macroProcessoOrganogramaId);
-
-        // Get all the empresaList where macroProcessoOrganograma equals to (macroProcessoOrganogramaId + 1)
-        defaultEmpresaShouldNotBeFound("macroProcessoOrganogramaId.equals=" + (macroProcessoOrganogramaId + 1));
-    }
 
     @Test
     @Transactional
@@ -671,31 +621,7 @@ class EmpresaResourceIT {
         defaultEmpresaShouldNotBeFound("organogramaId.equals=" + (organogramaId + 1));
     }
 
-    @Test
-    @Transactional
-    void getAllEmpresasByProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        empresaRepository.saveAndFlush(empresa);
-        Processo processo;
-        if (TestUtil.findAll(em, Processo.class).isEmpty()) {
-            processo = ProcessoResourceIT.createEntity(em);
-            em.persist(processo);
-            em.flush();
-        } else {
-            processo = TestUtil.findAll(em, Processo.class).get(0);
-        }
-        em.persist(processo);
-        em.flush();
-        empresa.addProcesso(processo);
-        empresaRepository.saveAndFlush(empresa);
-        Long processoId = processo.getId();
 
-        // Get all the empresaList where processo equals to processoId
-        defaultEmpresaShouldBeFound("processoId.equals=" + processoId);
-
-        // Get all the empresaList where processo equals to (processoId + 1)
-        defaultEmpresaShouldNotBeFound("processoId.equals=" + (processoId + 1));
-    }
 
     @Test
     @Transactional
@@ -782,7 +708,7 @@ class EmpresaResourceIT {
         Empresa updatedEmpresa = empresaRepository.findById(empresa.getId()).get();
         // Disconnect from session so that the updates on updatedEmpresa are not directly saved in db
         em.detach(updatedEmpresa);
-        updatedEmpresa.idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA).nVarNome(UPDATED_N_VAR_NOME).nVarDescricao(UPDATED_N_VAR_DESCRICAO);
+        updatedEmpresa.idNVarEmpresa(UPDATED_IDN_VAR_EMPRESA).nVarNome(UPDATED_N_VAR_NOME).nVarDescricao(UPDATED_N_VAR_DESCRICAO);
         EmpresaDTO empresaDTO = empresaMapper.toDto(updatedEmpresa);
 
         restEmpresaMockMvc
@@ -798,8 +724,8 @@ class EmpresaResourceIT {
         assertThat(empresaList).hasSize(databaseSizeBeforeUpdate);
         Empresa testEmpresa = empresaList.get(empresaList.size() - 1);
         assertThat(testEmpresa.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
-        assertThat(testEmpresa.getnVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
-        assertThat(testEmpresa.getnVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
+        assertThat(testEmpresa.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
+        assertThat(testEmpresa.getNVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
     }
 
     @Test
@@ -879,7 +805,7 @@ class EmpresaResourceIT {
         Empresa partialUpdatedEmpresa = new Empresa();
         partialUpdatedEmpresa.setId(empresa.getId());
 
-        partialUpdatedEmpresa.idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA).nVarNome(UPDATED_N_VAR_NOME);
+        partialUpdatedEmpresa.idNVarEmpresa(UPDATED_IDN_VAR_EMPRESA).nVarNome(UPDATED_N_VAR_NOME);
 
         restEmpresaMockMvc
             .perform(
@@ -894,8 +820,8 @@ class EmpresaResourceIT {
         assertThat(empresaList).hasSize(databaseSizeBeforeUpdate);
         Empresa testEmpresa = empresaList.get(empresaList.size() - 1);
         assertThat(testEmpresa.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
-        assertThat(testEmpresa.getnVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
-        assertThat(testEmpresa.getnVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
+        assertThat(testEmpresa.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
+        assertThat(testEmpresa.getNVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
     }
 
     @Test
@@ -910,7 +836,7 @@ class EmpresaResourceIT {
         Empresa partialUpdatedEmpresa = new Empresa();
         partialUpdatedEmpresa.setId(empresa.getId());
 
-        partialUpdatedEmpresa.idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA).nVarNome(UPDATED_N_VAR_NOME).nVarDescricao(UPDATED_N_VAR_DESCRICAO);
+        partialUpdatedEmpresa.idNVarEmpresa(UPDATED_IDN_VAR_EMPRESA).nVarNome(UPDATED_N_VAR_NOME).nVarDescricao(UPDATED_N_VAR_DESCRICAO);
 
         restEmpresaMockMvc
             .perform(
@@ -925,8 +851,8 @@ class EmpresaResourceIT {
         assertThat(empresaList).hasSize(databaseSizeBeforeUpdate);
         Empresa testEmpresa = empresaList.get(empresaList.size() - 1);
         assertThat(testEmpresa.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
-        assertThat(testEmpresa.getnVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
-        assertThat(testEmpresa.getnVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
+        assertThat(testEmpresa.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
+        assertThat(testEmpresa.getNVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
     }
 
     @Test

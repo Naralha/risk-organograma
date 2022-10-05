@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import io.sld.riskcomplianceservice.IntegrationTest;
+import io.sld.riskcomplianceservice.TestUtil;
 import io.sld.riskcomplianceservice.domain.entity.Empresa;
 import io.sld.riskcomplianceservice.domain.entity.Funcionario;
 import io.sld.riskcomplianceservice.domain.entity.FuncionarioOrganograma;
@@ -22,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+//@WithMockUser
 class FuncionarioResourceIT {
 
     private static final String DEFAULT_IDN_VAR_FUNCIONARIO = "AAAAAAAAAA";
@@ -128,9 +129,9 @@ class FuncionarioResourceIT {
         assertThat(funcionarioList).hasSize(databaseSizeBeforeCreate + 1);
         Funcionario testFuncionario = funcionarioList.get(funcionarioList.size() - 1);
         assertThat(testFuncionario.getIdnVarFuncionario()).isEqualTo(DEFAULT_IDN_VAR_FUNCIONARIO);
-        assertThat(testFuncionario.getnVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
-        assertThat(testFuncionario.getnVarEmail()).isEqualTo(DEFAULT_N_VAR_EMAIL);
-        assertThat(testFuncionario.getnVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
+        assertThat(testFuncionario.getNVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
+        assertThat(testFuncionario.getNVarEmail()).isEqualTo(DEFAULT_N_VAR_EMAIL);
+        assertThat(testFuncionario.getNVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
         assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(DEFAULT_IDN_VAR_EMPRESA);
         assertThat(testFuncionario.getIdnvarUsuario()).isEqualTo(DEFAULT_IDNVAR_USUARIO);
     }
@@ -181,7 +182,7 @@ class FuncionarioResourceIT {
     void checknVarNomeIsRequired() throws Exception {
         int databaseSizeBeforeTest = funcionarioRepository.findAll().size();
         // set the field null
-        funcionario.setnVarNome(null);
+        funcionario.setNVarNome(null);
 
         // Create the Funcionario, which fails.
         FuncionarioDTO funcionarioDTO = funcionarioMapper.toDto(funcionario);
@@ -201,7 +202,7 @@ class FuncionarioResourceIT {
     void checknVarEmailIsRequired() throws Exception {
         int databaseSizeBeforeTest = funcionarioRepository.findAll().size();
         // set the field null
-        funcionario.setnVarEmail(null);
+        funcionario.setNVarEmail(null);
 
         // Create the Funcionario, which fails.
         FuncionarioDTO funcionarioDTO = funcionarioMapper.toDto(funcionario);
@@ -944,9 +945,9 @@ class FuncionarioResourceIT {
         assertThat(funcionarioList).hasSize(databaseSizeBeforeUpdate);
         Funcionario testFuncionario = funcionarioList.get(funcionarioList.size() - 1);
         assertThat(testFuncionario.getIdnVarFuncionario()).isEqualTo(UPDATED_IDN_VAR_FUNCIONARIO);
-        assertThat(testFuncionario.getnVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
-        assertThat(testFuncionario.getnVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
-        assertThat(testFuncionario.getnVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
+        assertThat(testFuncionario.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
+        assertThat(testFuncionario.getNVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
+        assertThat(testFuncionario.getNVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
         assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
         assertThat(testFuncionario.getIdnvarUsuario()).isEqualTo(UPDATED_IDNVAR_USUARIO);
     }
@@ -1043,9 +1044,9 @@ class FuncionarioResourceIT {
         assertThat(funcionarioList).hasSize(databaseSizeBeforeUpdate);
         Funcionario testFuncionario = funcionarioList.get(funcionarioList.size() - 1);
         assertThat(testFuncionario.getIdnVarFuncionario()).isEqualTo(DEFAULT_IDN_VAR_FUNCIONARIO);
-        assertThat(testFuncionario.getnVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
-        assertThat(testFuncionario.getnVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
-        assertThat(testFuncionario.getnVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
+        assertThat(testFuncionario.getNVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
+        assertThat(testFuncionario.getNVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
+        assertThat(testFuncionario.getNVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
         assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
         assertThat(testFuncionario.getIdnvarUsuario()).isEqualTo(DEFAULT_IDNVAR_USUARIO);
     }
@@ -1083,9 +1084,9 @@ class FuncionarioResourceIT {
         assertThat(funcionarioList).hasSize(databaseSizeBeforeUpdate);
         Funcionario testFuncionario = funcionarioList.get(funcionarioList.size() - 1);
         assertThat(testFuncionario.getIdnVarFuncionario()).isEqualTo(UPDATED_IDN_VAR_FUNCIONARIO);
-        assertThat(testFuncionario.getnVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
-        assertThat(testFuncionario.getnVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
-        assertThat(testFuncionario.getnVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
+        assertThat(testFuncionario.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
+        assertThat(testFuncionario.getNVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
+        assertThat(testFuncionario.getNVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
         assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
         assertThat(testFuncionario.getIdnvarUsuario()).isEqualTo(UPDATED_IDNVAR_USUARIO);
     }

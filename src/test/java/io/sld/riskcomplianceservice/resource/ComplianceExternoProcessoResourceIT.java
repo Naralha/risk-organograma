@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import io.sld.riskcomplianceservice.IntegrationTest;
+import io.sld.riskcomplianceservice.TestUtil;
 import io.sld.riskcomplianceservice.domain.entity.ComplianceExterno;
 import io.sld.riskcomplianceservice.domain.entity.ComplianceExternoProcesso;
 import io.sld.riskcomplianceservice.domain.entity.Processo;
@@ -22,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+//@WithMockUser
 class ComplianceExternoProcessoResourceIT {
 
     private static final String DEFAULT_IDN_VAR_COMPLIANCE_EXTERNO = "AAAAAAAAAA";

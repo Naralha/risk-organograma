@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import io.sld.riskcomplianceservice.IntegrationTest;
+import io.sld.riskcomplianceservice.TestUtil;
 import io.sld.riskcomplianceservice.domain.entity.ClienteExterno;
 import io.sld.riskcomplianceservice.domain.entity.ClienteExternoProcesso;
 import io.sld.riskcomplianceservice.domain.entity.ClienteInternoProcesso;
@@ -36,7 +37,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
+//import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +46,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @IntegrationTest
 @AutoConfigureMockMvc
-@WithMockUser
+//@WithMockUser
 class UsuarioResourceIT {
 
     private static final String DEFAULT_IDN_VAR_USUARIO = "AAAAAAAAAA";
@@ -93,7 +94,6 @@ class UsuarioResourceIT {
         Usuario usuario = new Usuario()
             .idnVarUsuario(DEFAULT_IDN_VAR_USUARIO)
             .nVarNome(DEFAULT_N_VAR_NOME)
-            .idnVarEmpresa(DEFAULT_IDN_VAR_EMPRESA)
             .idnVarUsuarioCadastro(DEFAULT_IDN_VAR_USUARIO_CADASTRO)
             .nVarSenha(DEFAULT_N_VAR_SENHA);
         return usuario;
@@ -109,7 +109,6 @@ class UsuarioResourceIT {
         Usuario usuario = new Usuario()
             .idnVarUsuario(UPDATED_IDN_VAR_USUARIO)
             .nVarNome(UPDATED_N_VAR_NOME)
-            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
             .idnVarUsuarioCadastro(UPDATED_IDN_VAR_USUARIO_CADASTRO)
             .nVarSenha(UPDATED_N_VAR_SENHA);
         return usuario;
@@ -135,10 +134,9 @@ class UsuarioResourceIT {
         assertThat(usuarioList).hasSize(databaseSizeBeforeCreate + 1);
         Usuario testUsuario = usuarioList.get(usuarioList.size() - 1);
         assertThat(testUsuario.getIdnVarUsuario()).isEqualTo(DEFAULT_IDN_VAR_USUARIO);
-        assertThat(testUsuario.getnVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
-        assertThat(testUsuario.getIdnVarEmpresa()).isEqualTo(DEFAULT_IDN_VAR_EMPRESA);
+        assertThat(testUsuario.getNVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
         assertThat(testUsuario.getIdnVarUsuarioCadastro()).isEqualTo(DEFAULT_IDN_VAR_USUARIO_CADASTRO);
-        assertThat(testUsuario.getnVarSenha()).isEqualTo(DEFAULT_N_VAR_SENHA);
+        assertThat(testUsuario.getNVarSenha()).isEqualTo(DEFAULT_N_VAR_SENHA);
     }
 
     @Test
@@ -183,7 +181,7 @@ class UsuarioResourceIT {
     void checknVarNomeIsRequired() throws Exception {
         int databaseSizeBeforeTest = usuarioRepository.findAll().size();
         // set the field null
-        usuario.setnVarNome(null);
+        usuario.setNVarNome(null);
 
         // Create the Usuario, which fails.
         UsuarioDTO usuarioDTO = usuarioMapper.toDto(usuario);
@@ -201,7 +199,7 @@ class UsuarioResourceIT {
     void checknVarSenhaIsRequired() throws Exception {
         int databaseSizeBeforeTest = usuarioRepository.findAll().size();
         // set the field null
-        usuario.setnVarSenha(null);
+        usuario.setNVarSenha(null);
 
         // Create the Usuario, which fails.
         UsuarioDTO usuarioDTO = usuarioMapper.toDto(usuario);
@@ -1168,7 +1166,6 @@ class UsuarioResourceIT {
         updatedUsuario
             .idnVarUsuario(UPDATED_IDN_VAR_USUARIO)
             .nVarNome(UPDATED_N_VAR_NOME)
-            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
             .idnVarUsuarioCadastro(UPDATED_IDN_VAR_USUARIO_CADASTRO)
             .nVarSenha(UPDATED_N_VAR_SENHA);
         UsuarioDTO usuarioDTO = usuarioMapper.toDto(updatedUsuario);
@@ -1186,10 +1183,9 @@ class UsuarioResourceIT {
         assertThat(usuarioList).hasSize(databaseSizeBeforeUpdate);
         Usuario testUsuario = usuarioList.get(usuarioList.size() - 1);
         assertThat(testUsuario.getIdnVarUsuario()).isEqualTo(UPDATED_IDN_VAR_USUARIO);
-        assertThat(testUsuario.getnVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
-        assertThat(testUsuario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
+        assertThat(testUsuario.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
         assertThat(testUsuario.getIdnVarUsuarioCadastro()).isEqualTo(UPDATED_IDN_VAR_USUARIO_CADASTRO);
-        assertThat(testUsuario.getnVarSenha()).isEqualTo(UPDATED_N_VAR_SENHA);
+        assertThat(testUsuario.getNVarSenha()).isEqualTo(UPDATED_N_VAR_SENHA);
     }
 
     @Test
@@ -1284,10 +1280,9 @@ class UsuarioResourceIT {
         assertThat(usuarioList).hasSize(databaseSizeBeforeUpdate);
         Usuario testUsuario = usuarioList.get(usuarioList.size() - 1);
         assertThat(testUsuario.getIdnVarUsuario()).isEqualTo(UPDATED_IDN_VAR_USUARIO);
-        assertThat(testUsuario.getnVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
-        assertThat(testUsuario.getIdnVarEmpresa()).isEqualTo(DEFAULT_IDN_VAR_EMPRESA);
+        assertThat(testUsuario.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
         assertThat(testUsuario.getIdnVarUsuarioCadastro()).isEqualTo(DEFAULT_IDN_VAR_USUARIO_CADASTRO);
-        assertThat(testUsuario.getnVarSenha()).isEqualTo(UPDATED_N_VAR_SENHA);
+        assertThat(testUsuario.getNVarSenha()).isEqualTo(UPDATED_N_VAR_SENHA);
     }
 
     @Test
@@ -1305,7 +1300,6 @@ class UsuarioResourceIT {
         partialUpdatedUsuario
             .idnVarUsuario(UPDATED_IDN_VAR_USUARIO)
             .nVarNome(UPDATED_N_VAR_NOME)
-            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
             .idnVarUsuarioCadastro(UPDATED_IDN_VAR_USUARIO_CADASTRO)
             .nVarSenha(UPDATED_N_VAR_SENHA);
 
@@ -1322,10 +1316,9 @@ class UsuarioResourceIT {
         assertThat(usuarioList).hasSize(databaseSizeBeforeUpdate);
         Usuario testUsuario = usuarioList.get(usuarioList.size() - 1);
         assertThat(testUsuario.getIdnVarUsuario()).isEqualTo(UPDATED_IDN_VAR_USUARIO);
-        assertThat(testUsuario.getnVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
-        assertThat(testUsuario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
+        assertThat(testUsuario.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
         assertThat(testUsuario.getIdnVarUsuarioCadastro()).isEqualTo(UPDATED_IDN_VAR_USUARIO_CADASTRO);
-        assertThat(testUsuario.getnVarSenha()).isEqualTo(UPDATED_N_VAR_SENHA);
+        assertThat(testUsuario.getNVarSenha()).isEqualTo(UPDATED_N_VAR_SENHA);
     }
 
     @Test
