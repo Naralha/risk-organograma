@@ -85,7 +85,7 @@ class FuncionarioResourceIT {
             .nVarNome(DEFAULT_N_VAR_NOME)
             .nVarEmail(DEFAULT_N_VAR_EMAIL)
             .nVarDescricao(DEFAULT_N_VAR_DESCRICAO)
-            .idnVarEmpresa(DEFAULT_IDN_VAR_EMPRESA)
+//            .idnVarEmpresa(DEFAULT_IDN_VAR_EMPRESA)
             .idnvarUsuario(DEFAULT_IDNVAR_USUARIO);
         return funcionario;
     }
@@ -102,7 +102,7 @@ class FuncionarioResourceIT {
             .nVarNome(UPDATED_N_VAR_NOME)
             .nVarEmail(UPDATED_N_VAR_EMAIL)
             .nVarDescricao(UPDATED_N_VAR_DESCRICAO)
-            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
+//            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
             .idnvarUsuario(UPDATED_IDNVAR_USUARIO);
         return funcionario;
     }
@@ -132,7 +132,7 @@ class FuncionarioResourceIT {
         assertThat(testFuncionario.getNVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
         assertThat(testFuncionario.getNVarEmail()).isEqualTo(DEFAULT_N_VAR_EMAIL);
         assertThat(testFuncionario.getNVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
-        assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(DEFAULT_IDN_VAR_EMPRESA);
+//        assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(DEFAULT_IDN_VAR_EMPRESA);
         assertThat(testFuncionario.getIdnvarUsuario()).isEqualTo(DEFAULT_IDNVAR_USUARIO);
     }
 
@@ -222,7 +222,7 @@ class FuncionarioResourceIT {
     void checkIdnVarEmpresaIsRequired() throws Exception {
         int databaseSizeBeforeTest = funcionarioRepository.findAll().size();
         // set the field null
-        funcionario.setIdnVarEmpresa(null);
+//        funcionario.setIdnVarEmpresa(null);
 
         // Create the Funcionario, which fails.
         FuncionarioDTO funcionarioDTO = funcionarioMapper.toDto(funcionario);
@@ -928,7 +928,7 @@ class FuncionarioResourceIT {
             .nVarNome(UPDATED_N_VAR_NOME)
             .nVarEmail(UPDATED_N_VAR_EMAIL)
             .nVarDescricao(UPDATED_N_VAR_DESCRICAO)
-            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
+//            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
             .idnvarUsuario(UPDATED_IDNVAR_USUARIO);
         FuncionarioDTO funcionarioDTO = funcionarioMapper.toDto(updatedFuncionario);
 
@@ -948,7 +948,7 @@ class FuncionarioResourceIT {
         assertThat(testFuncionario.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
         assertThat(testFuncionario.getNVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
         assertThat(testFuncionario.getNVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
-        assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
+//        assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
         assertThat(testFuncionario.getIdnvarUsuario()).isEqualTo(UPDATED_IDNVAR_USUARIO);
     }
 
@@ -1029,7 +1029,7 @@ class FuncionarioResourceIT {
         Funcionario partialUpdatedFuncionario = new Funcionario();
         partialUpdatedFuncionario.setId(funcionario.getId());
 
-        partialUpdatedFuncionario.nVarEmail(UPDATED_N_VAR_EMAIL).idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA);
+//        partialUpdatedFuncionario.nVarEmail(UPDATED_N_VAR_EMAIL).idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA);
 
         restFuncionarioMockMvc
             .perform(
@@ -1047,7 +1047,7 @@ class FuncionarioResourceIT {
         assertThat(testFuncionario.getNVarNome()).isEqualTo(DEFAULT_N_VAR_NOME);
         assertThat(testFuncionario.getNVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
         assertThat(testFuncionario.getNVarDescricao()).isEqualTo(DEFAULT_N_VAR_DESCRICAO);
-        assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
+//        assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
         assertThat(testFuncionario.getIdnvarUsuario()).isEqualTo(DEFAULT_IDNVAR_USUARIO);
     }
 
@@ -1068,7 +1068,7 @@ class FuncionarioResourceIT {
             .nVarNome(UPDATED_N_VAR_NOME)
             .nVarEmail(UPDATED_N_VAR_EMAIL)
             .nVarDescricao(UPDATED_N_VAR_DESCRICAO)
-            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
+//            .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
             .idnvarUsuario(UPDATED_IDNVAR_USUARIO);
 
         restFuncionarioMockMvc
@@ -1087,7 +1087,7 @@ class FuncionarioResourceIT {
         assertThat(testFuncionario.getNVarNome()).isEqualTo(UPDATED_N_VAR_NOME);
         assertThat(testFuncionario.getNVarEmail()).isEqualTo(UPDATED_N_VAR_EMAIL);
         assertThat(testFuncionario.getNVarDescricao()).isEqualTo(UPDATED_N_VAR_DESCRICAO);
-        assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
+//        assertThat(testFuncionario.getIdnVarEmpresa()).isEqualTo(UPDATED_IDN_VAR_EMPRESA);
         assertThat(testFuncionario.getIdnvarUsuario()).isEqualTo(UPDATED_IDNVAR_USUARIO);
     }
 

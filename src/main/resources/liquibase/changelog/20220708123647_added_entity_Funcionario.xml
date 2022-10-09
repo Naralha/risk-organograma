@@ -26,9 +26,9 @@
             <column name="n_var_descricao" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="idn_var_empresa" type="varchar(255)">
-                <constraints nullable="false" />
-            </column>
+<!--            <column name="idn_var_empresa" type="varchar(255)">-->
+<!--                <constraints nullable="false" />-->
+<!--            </column>-->
             <column name="idnvar_usuario" type="varchar(255)">
                 <constraints nullable="false" />
             </column>

@@ -48,9 +48,9 @@ public class Funcionario implements Serializable {
     @Column(name = "n_var_descricao")
     private String nVarDescricao;
 
-    @NotNull
-    @Column(name = "idn_var_empresa", nullable = false)
-    private String idnVarEmpresa;
+//    @NotNull
+//    @Column(name = "idn_var_empresa", nullable = false)
+//    private String idnVarEmpresa;
 
     @NotNull
     @Column(name = "idnvar_usuario", nullable = false)
@@ -147,10 +147,10 @@ public class Funcionario implements Serializable {
 
 
 
-    public Funcionario idnVarEmpresa(String idnVarEmpresa) {
-        this.setIdnVarEmpresa(idnVarEmpresa);
-        return this;
-    }
+//    public Funcionario idnVarEmpresa(String idnVarEmpresa) {
+//        this.setIdnVarEmpresa(idnVarEmpresa);
+//        return this;
+//    }
 
 
 
@@ -228,7 +228,7 @@ public class Funcionario implements Serializable {
             ", nVarNome='" + getNVarNome() + "'" +
             ", nVarEmail='" + getNVarEmail() + "'" +
             ", nVarDescricao='" + getNVarDescricao() + "'" +
-            ", idnVarEmpresa='" + getIdnVarEmpresa() + "'" +
+//            ", idnVarEmpresa='" + getIdnVarEmpresa() + "'" +
             ", idnvarUsuario='" + getIdnvarUsuario() + "'" +
             "}";
     }

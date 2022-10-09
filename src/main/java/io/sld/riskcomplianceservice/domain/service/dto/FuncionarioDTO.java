@@ -34,8 +34,8 @@ public class FuncionarioDTO implements Serializable {
 
     private String nVarDescricao;
 
-    @NotNull
-    private String idnVarEmpresa;
+//    @NotNull
+//    private String idnVarEmpresa;
 
     @NotNull
     private String idnvarUsuario;

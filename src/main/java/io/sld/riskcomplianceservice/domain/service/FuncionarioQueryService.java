@@ -103,9 +103,9 @@ public class FuncionarioQueryService extends QueryService<Funcionario> {
             if (criteria.getnVarDescricao() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getnVarDescricao(), Funcionario_.nVarDescricao));
             }
-            if (criteria.getIdnVarEmpresa() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getIdnVarEmpresa(), Funcionario_.idnVarEmpresa));
-            }
+//            if (criteria.getIdnVarEmpresa() != null) {
+//                specification = specification.and(buildStringSpecification(criteria.getIdnVarEmpresa(), Funcionario_.idnVarEmpresa));
+//            }
             if (criteria.getIdnvarUsuario() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getIdnvarUsuario(), Funcionario_.idnvarUsuario));
             }
