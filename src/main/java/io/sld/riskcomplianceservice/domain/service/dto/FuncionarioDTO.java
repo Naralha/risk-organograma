@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 import javax.validation.constraints.*;
 
 /**
@@ -21,10 +22,10 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class FuncionarioDTO implements Serializable {
 
-    private Long id;
+//    private Long id;
 
     @NotNull
-    private String idnVarFuncionario;
+    private UUID idnVarFuncionario;
 
     @NotNull
     private String nVarNome;
@@ -56,15 +57,15 @@ public class FuncionarioDTO implements Serializable {
         }
 
         FuncionarioDTO funcionarioDTO = (FuncionarioDTO) o;
-        if (this.id == null) {
+        if (this.idnVarFuncionario == null) {
             return false;
         }
-        return Objects.equals(this.id, funcionarioDTO.id);
+        return Objects.equals(this.idnVarFuncionario, funcionarioDTO.idnVarFuncionario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id);
+        return Objects.hash(this.idnVarFuncionario);
     }
 
 

@@ -5,6 +5,8 @@ import io.sld.riskcomplianceservice.domain.repository.FuncionarioRepository;
 import io.sld.riskcomplianceservice.domain.service.dto.FuncionarioDTO;
 import io.sld.riskcomplianceservice.domain.service.mapper.FuncionarioMapper;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -39,6 +41,7 @@ public class FuncionarioService {
     public FuncionarioDTO save(FuncionarioDTO funcionarioDTO) {
         log.debug("Request to save Funcionario : {}", funcionarioDTO);
         Funcionario funcionario = funcionarioMapper.toEntity(funcionarioDTO);
+        funcionario.setIdnVarFuncionario(UUID.randomUUID());
         funcionario = funcionarioRepository.save(funcionario);
         return funcionarioMapper.toDto(funcionario);
     }
@@ -66,7 +69,8 @@ public class FuncionarioService {
         log.debug("Request to partially update Funcionario : {}", funcionarioDTO);
 
         return funcionarioRepository
-            .findById(funcionarioDTO.getId())
+                .findByIdnVarFuncionario(funcionarioDTO.getIdnVarFuncionario())
+//            .findById(funcionarioDTO.getId())
             .map(existingFuncionario -> {
                 funcionarioMapper.partialUpdate(existingFuncionario, funcionarioDTO);
 
@@ -91,13 +95,13 @@ public class FuncionarioService {
     /**
      * Get one funcionario by id.
      *
-     * @param id the id of the entity.
+     * @param idnVarFuncionario the id of the entity.
      * @return the entity.
      */
     @Transactional(readOnly = true)
-    public Optional<FuncionarioDTO> findOne(Long id) {
-        log.debug("Request to get Funcionario : {}", id);
-        return funcionarioRepository.findById(id).map(funcionarioMapper::toDto);
+    public Optional<FuncionarioDTO> findOne(UUID idnVarFuncionario) {
+        log.debug("Request to get Funcionario : {}", idnVarFuncionario);
+        return funcionarioRepository.findByIdnVarFuncionario(idnVarFuncionario).map(funcionarioMapper::toDto);
     }
 
     /**

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -33,9 +34,9 @@ public class Funcionario implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
+//    @NotNull
     @Column(name = "idn_var_funcionario", nullable = false)
-    private String idnVarFuncionario;
+    private UUID idnVarFuncionario;
 
     @NotNull
     @Column(name = "n_var_nome", nullable = false)
@@ -117,7 +118,7 @@ public class Funcionario implements Serializable {
 
 
 
-    public Funcionario idnVarFuncionario(String idnVarFuncionario) {
+    public Funcionario idnVarFuncionario(UUID idnVarFuncionario) {
         this.setIdnVarFuncionario(idnVarFuncionario);
         return this;
     }

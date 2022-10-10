@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.slf4j.Logger;
@@ -68,54 +69,55 @@ public class FuncionarioResource {
     @PostMapping("/funcionarios")
     public ResponseEntity<FuncionarioDTO> createFuncionario(@Valid @RequestBody FuncionarioDTO funcionarioDTO) throws URISyntaxException {
         log.debug("REST request to save Funcionario : {}", funcionarioDTO);
-        if (funcionarioDTO.getId() != null) {
+        if (funcionarioDTO.getIdnVarFuncionario() != null) {
             throw new BadRequestAlertException("A new funcionario cannot already have an ID", ENTITY_NAME, "idexists");
         }
         FuncionarioDTO result = funcionarioService.save(funcionarioDTO);
         return ResponseEntity
-            .created(new URI("/api/funcionarios/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+            .created(new URI("/api/funcionarios/" + result.getIdnVarFuncionario()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getIdnVarFuncionario().toString()))
             .body(result);
     }
 
     /**
      * {@code PUT  /funcionarios/:id} : Updates an existing funcionario.
      *
-     * @param id the id of the funcionarioDTO to save.
+     * @param idnVarFuncionario the id of the funcionarioDTO to save.
      * @param funcionarioDTO the funcionarioDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated funcionarioDTO,
      * or with status {@code 400 (Bad Request)} if the funcionarioDTO is not valid,
      * or with status {@code 500 (Internal Server Error)} if the funcionarioDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/funcionarios/{id}")
+    @PutMapping("/funcionarios/{idnVarFuncionario}")
     public ResponseEntity<FuncionarioDTO> updateFuncionario(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "idnVarFuncionario", required = false) final UUID idnVarFuncionario,
         @Valid @RequestBody FuncionarioDTO funcionarioDTO
     ) throws URISyntaxException {
-        log.debug("REST request to update Funcionario : {}, {}", id, funcionarioDTO);
-        if (funcionarioDTO.getId() == null) {
+        log.debug("REST request to update Funcionario : {}, {}", idnVarFuncionario, funcionarioDTO);
+        if (funcionarioDTO.getIdnVarFuncionario() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, funcionarioDTO.getId())) {
+        if (!Objects.equals(idnVarFuncionario, funcionarioDTO.getIdnVarFuncionario())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!funcionarioRepository.existsById(id)) {
+//        if (!funcionarioRepository.existsById(idnVarFuncionario)) {
+        if (funcionarioRepository.findByIdnVarFuncionario(idnVarFuncionario).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
         FuncionarioDTO result = funcionarioService.update(funcionarioDTO);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, funcionarioDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, funcionarioDTO.getIdnVarFuncionario().toString()))
             .body(result);
     }
 
     /**
      * {@code PATCH  /funcionarios/:id} : Partial updates given fields of an existing funcionario, field will ignore if it is null
      *
-     * @param id the id of the funcionarioDTO to save.
+     * @param idnVarFuncionario the id of the funcionarioDTO to save.
      * @param funcionarioDTO the funcionarioDTO to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated funcionarioDTO,
      * or with status {@code 400 (Bad Request)} if the funcionarioDTO is not valid,
@@ -123,20 +125,21 @@ public class FuncionarioResource {
      * or with status {@code 500 (Internal Server Error)} if the funcionarioDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/funcionarios/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/funcionarios/{idnVarFuncionario}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<FuncionarioDTO> partialUpdateFuncionario(
-        @PathVariable(value = "id", required = false) final Long id,
+        @PathVariable(value = "idnVarFuncionario", required = false) final UUID idnVarFuncionario,
         @NotNull @RequestBody FuncionarioDTO funcionarioDTO
     ) throws URISyntaxException {
-        log.debug("REST request to partial update Funcionario partially : {}, {}", id, funcionarioDTO);
-        if (funcionarioDTO.getId() == null) {
+        log.debug("REST request to partial update Funcionario partially : {}, {}", idnVarFuncionario, funcionarioDTO);
+        if (funcionarioDTO.getIdnVarFuncionario() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        if (!Objects.equals(id, funcionarioDTO.getId())) {
+        if (!Objects.equals(idnVarFuncionario, funcionarioDTO.getIdnVarFuncionario())) {
             throw new BadRequestAlertException("Invalid ID", ENTITY_NAME, "idinvalid");
         }
 
-        if (!funcionarioRepository.existsById(id)) {
+//        if (!funcionarioRepository.existsById(idnVarFuncionario)) {
+        if (funcionarioRepository.findByIdnVarFuncionario(idnVarFuncionario).isEmpty()) {
             throw new BadRequestAlertException("Entity not found", ENTITY_NAME, "idnotfound");
         }
 
@@ -144,7 +147,7 @@ public class FuncionarioResource {
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, funcionarioDTO.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, funcionarioDTO.getIdnVarFuncionario().toString())
         );
     }
 
@@ -181,13 +184,13 @@ public class FuncionarioResource {
     /**
      * {@code GET  /funcionarios/:id} : get the "id" funcionario.
      *
-     * @param id the id of the funcionarioDTO to retrieve.
+     * @param idnVarFuncionario the id of the funcionarioDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the funcionarioDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/funcionarios/{id}")
-    public ResponseEntity<FuncionarioDTO> getFuncionario(@PathVariable Long id) {
-        log.debug("REST request to get Funcionario : {}", id);
-        Optional<FuncionarioDTO> funcionarioDTO = funcionarioService.findOne(id);
+    @GetMapping("/funcionarios/{idnVarFuncionario}")
+    public ResponseEntity<FuncionarioDTO> getFuncionario(@PathVariable UUID idnVarFuncionario) {
+        log.debug("REST request to get Funcionario : {}", idnVarFuncionario);
+        Optional<FuncionarioDTO> funcionarioDTO = funcionarioService.findOne(idnVarFuncionario);
         return ResponseUtil.wrapOrNotFound(funcionarioDTO);
     }
 

@@ -4,16 +4,10 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import io.sld.riskcomplianceservice.domain.entity.Funcionario;
+import io.sld.riskcomplianceservice.domain.service.filter.*;
 import io.sld.riskcomplianceservice.resource.FuncionarioResource;
 import org.springdoc.api.annotations.ParameterObject;
 import io.sld.riskcomplianceservice.domain.service.criteria.Criteria;
-import io.sld.riskcomplianceservice.domain.service.filter.BooleanFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.DoubleFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.Filter;
-import io.sld.riskcomplianceservice.domain.service.filter.FloatFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.IntegerFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.LongFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.StringFilter;
 
 /**
  * Criteria class for the {@link Funcionario} entity. This class is used
@@ -31,7 +25,8 @@ public class FuncionarioCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter idnVarFuncionario;
+//    private StringFilter idnVarFuncionario;
+    private UUIDFilter idnVarFuncionario;
 
     private StringFilter nVarNome;
 
@@ -87,18 +82,18 @@ public class FuncionarioCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getIdnVarFuncionario() {
+    public UUIDFilter getIdnVarFuncionario() {
         return idnVarFuncionario;
     }
 
-    public StringFilter idnVarFuncionario() {
+    public UUIDFilter idnVarFuncionario() {
         if (idnVarFuncionario == null) {
-            idnVarFuncionario = new StringFilter();
+            idnVarFuncionario = new UUIDFilter();
         }
         return idnVarFuncionario;
     }
 
-    public void setIdnVarFuncionario(StringFilter idnVarFuncionario) {
+    public void setIdnVarFuncionario(UUIDFilter idnVarFuncionario) {
         this.idnVarFuncionario = idnVarFuncionario;
     }
 

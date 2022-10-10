@@ -16,6 +16,7 @@ import io.sld.riskcomplianceservice.domain.service.dto.FuncionarioDTO;
 import io.sld.riskcomplianceservice.domain.service.mapper.FuncionarioMapper;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,9 +36,10 @@ import org.springframework.transaction.annotation.Transactional;
 //@WithMockUser
 class FuncionarioResourceIT {
 
-    private static final String DEFAULT_IDN_VAR_FUNCIONARIO = "AAAAAAAAAA";
-    private static final String UPDATED_IDN_VAR_FUNCIONARIO = "BBBBBBBBBB";
-
+//    private static final String DEFAULT_IDN_VAR_FUNCIONARIO = "AAAAAAAAAA";
+    private static final UUID DEFAULT_IDN_VAR_FUNCIONARIO = UUID.randomUUID();
+//    private static final String UPDATED_IDN_VAR_FUNCIONARIO = "BBBBBBBBBB";
+    private static final UUID UPDATED_IDN_VAR_FUNCIONARIO = UUID.randomUUID();
     private static final String DEFAULT_N_VAR_NOME = "AAAAAAAAAA";
     private static final String UPDATED_N_VAR_NOME = "BBBBBBBBBB";
 

@@ -14,7 +14,8 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="idn_var_funcionario" type="varchar(255)">
+<!--            <column name="idn_var_funcionario" type="varchar(255)">-->
+            <column name="idn_var_funcionario" type="uuid">
                 <constraints nullable="false" />
             </column>
             <column name="n_var_nome" type="varchar(255)">
@@ -59,7 +60,7 @@
                   tableName="funcionario"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="idn_var_funcionario" type="string"/>
+            <column name="idn_var_funcionario" type="uuid"/>
             <column name="n_var_nome" type="string"/>
             <column name="n_var_email" type="string"/>
             <column name="n_var_descricao" type="string"/>

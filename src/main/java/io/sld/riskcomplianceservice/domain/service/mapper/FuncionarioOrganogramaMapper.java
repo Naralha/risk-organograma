@@ -22,7 +22,7 @@ public interface FuncionarioOrganogramaMapper extends EntityMapper<FuncionarioOr
 
     @Named("funcionarioId")
     @BeanMapping(ignoreByDefault = true)
-    @Mapping(target = "id", source = "id")
+//    @Mapping(target = "id", source = "id")
     FuncionarioDTO toDtoFuncionarioId(Funcionario funcionario);
 
     @Named("organogramaId")
