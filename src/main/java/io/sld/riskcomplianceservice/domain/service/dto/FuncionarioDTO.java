@@ -24,7 +24,7 @@ public class FuncionarioDTO implements Serializable {
 
 //    private Long id;
 
-    @NotNull
+//    @NotNull
     private UUID idnVarFuncionario;
 
     @NotNull
