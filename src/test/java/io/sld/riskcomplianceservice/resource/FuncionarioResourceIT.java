@@ -936,7 +936,7 @@ class FuncionarioResourceIT {
 
         restFuncionarioMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, funcionarioDTO.getId())
+                put(ENTITY_API_URL_ID, funcionarioDTO.getIdnVarFuncionario())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(funcionarioDTO))
             )
@@ -966,7 +966,7 @@ class FuncionarioResourceIT {
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restFuncionarioMockMvc
             .perform(
-                put(ENTITY_API_URL_ID, funcionarioDTO.getId())
+                put(ENTITY_API_URL_ID, funcionarioDTO.getIdnVarFuncionario())
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(TestUtil.convertObjectToJsonBytes(funcionarioDTO))
             )
@@ -1105,7 +1105,7 @@ class FuncionarioResourceIT {
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restFuncionarioMockMvc
             .perform(
-                patch(ENTITY_API_URL_ID, funcionarioDTO.getId())
+                patch(ENTITY_API_URL_ID, funcionarioDTO.getIdnVarFuncionario())
                     .contentType("application/merge-patch+json")
                     .content(TestUtil.convertObjectToJsonBytes(funcionarioDTO))
             )
