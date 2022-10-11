@@ -16,4 +16,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>,
     @Query("SELECT f FROM Funcionario f WHERE f.idnVarFuncionario = ?1")
     Optional<Funcionario> findByIdnVarFuncionario(UUID idnVarFuncionario);
 
+    void deleteByIdnVarFuncionario(UUID idnVarFuncionario);
+
 }

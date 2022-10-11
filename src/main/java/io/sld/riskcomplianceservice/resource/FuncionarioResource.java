@@ -197,16 +197,16 @@ public class FuncionarioResource {
     /**
      * {@code DELETE  /funcionarios/:id} : delete the "id" funcionario.
      *
-     * @param id the id of the funcionarioDTO to delete.
+     * @param idnVarFuncionario the id of the funcionarioDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/funcionarios/{id}")
-    public ResponseEntity<Void> deleteFuncionario(@PathVariable Long id) {
-        log.debug("REST request to delete Funcionario : {}", id);
-        funcionarioService.delete(id);
+    @DeleteMapping("/funcionarios/{idnVarFuncionario}")
+    public ResponseEntity<Void> deleteFuncionario(@PathVariable UUID idnVarFuncionario) {
+        log.debug("REST request to delete Funcionario : {}", idnVarFuncionario);
+        funcionarioService.delete(idnVarFuncionario);
         return ResponseEntity
             .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, idnVarFuncionario.toString()))
             .build();
     }
 }

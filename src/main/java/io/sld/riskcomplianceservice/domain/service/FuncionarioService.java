@@ -107,10 +107,10 @@ public class FuncionarioService {
     /**
      * Delete the funcionario by id.
      *
-     * @param id the id of the entity.
+     * @param idnVarFuncionario the id of the entity.
      */
-    public void delete(Long id) {
-        log.debug("Request to delete Funcionario : {}", id);
-        funcionarioRepository.deleteById(id);
+    public void delete(UUID idnVarFuncionario) {
+        log.debug("Request to delete Funcionario : {}", idnVarFuncionario);
+        funcionarioRepository.deleteByIdnVarFuncionario(idnVarFuncionario);
     }
 }
