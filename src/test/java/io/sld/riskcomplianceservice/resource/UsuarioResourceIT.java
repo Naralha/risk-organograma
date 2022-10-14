@@ -7,23 +7,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.sld.riskcomplianceservice.IntegrationTest;
 import io.sld.riskcomplianceservice.TestUtil;
-import io.sld.riskcomplianceservice.domain.entity.ClienteExterno;
-import io.sld.riskcomplianceservice.domain.entity.ClienteExternoProcesso;
-import io.sld.riskcomplianceservice.domain.entity.ClienteInternoProcesso;
-import io.sld.riskcomplianceservice.domain.entity.ComplianceExterno;
-import io.sld.riskcomplianceservice.domain.entity.ComplianceExternoProcesso;
-import io.sld.riskcomplianceservice.domain.entity.ComplianceInterno;
-import io.sld.riskcomplianceservice.domain.entity.ComplianceInternoProcesso;
 import io.sld.riskcomplianceservice.domain.entity.Empresa;
-import io.sld.riskcomplianceservice.domain.entity.FornecedorExterno;
-import io.sld.riskcomplianceservice.domain.entity.FornecedorExternoProcesso;
-import io.sld.riskcomplianceservice.domain.entity.FornecedorInternoProcesso;
 import io.sld.riskcomplianceservice.domain.entity.Funcionario;
 import io.sld.riskcomplianceservice.domain.entity.FuncionarioOrganograma;
-import io.sld.riskcomplianceservice.domain.entity.MacroProcesso;
-import io.sld.riskcomplianceservice.domain.entity.MacroProcessoOrganograma;
 import io.sld.riskcomplianceservice.domain.entity.Organograma;
-import io.sld.riskcomplianceservice.domain.entity.Processo;
 import io.sld.riskcomplianceservice.domain.entity.Usuario;
 import io.sld.riskcomplianceservice.domain.repository.UsuarioRepository;
 import io.sld.riskcomplianceservice.domain.service.dto.UsuarioDTO;
@@ -660,109 +647,13 @@ class UsuarioResourceIT {
         defaultUsuarioShouldBeFound("nVarSenha.doesNotContain=" + UPDATED_N_VAR_SENHA);
     }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByClienteExternoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        ClienteExterno clienteExterno;
-        if (TestUtil.findAll(em, ClienteExterno.class).isEmpty()) {
-            clienteExterno = ClienteExternoResourceIT.createEntity(em);
-            em.persist(clienteExterno);
-            em.flush();
-        } else {
-            clienteExterno = TestUtil.findAll(em, ClienteExterno.class).get(0);
-        }
-        em.persist(clienteExterno);
-        em.flush();
-        usuario.addClienteExterno(clienteExterno);
-        usuarioRepository.saveAndFlush(usuario);
-        Long clienteExternoId = clienteExterno.getId();
 
-        // Get all the usuarioList where clienteExterno equals to clienteExternoId
-        defaultUsuarioShouldBeFound("clienteExternoId.equals=" + clienteExternoId);
 
-        // Get all the usuarioList where clienteExterno equals to (clienteExternoId + 1)
-        defaultUsuarioShouldNotBeFound("clienteExternoId.equals=" + (clienteExternoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByFornecedorExternoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        FornecedorExterno fornecedorExterno;
-        if (TestUtil.findAll(em, FornecedorExterno.class).isEmpty()) {
-            fornecedorExterno = FornecedorExternoResourceIT.createEntity(em);
-            em.persist(fornecedorExterno);
-            em.flush();
-        } else {
-            fornecedorExterno = TestUtil.findAll(em, FornecedorExterno.class).get(0);
-        }
-        em.persist(fornecedorExterno);
-        em.flush();
-        usuario.addFornecedorExterno(fornecedorExterno);
-        usuarioRepository.saveAndFlush(usuario);
-        Long fornecedorExternoId = fornecedorExterno.getId();
 
-        // Get all the usuarioList where fornecedorExterno equals to fornecedorExternoId
-        defaultUsuarioShouldBeFound("fornecedorExternoId.equals=" + fornecedorExternoId);
 
-        // Get all the usuarioList where fornecedorExterno equals to (fornecedorExternoId + 1)
-        defaultUsuarioShouldNotBeFound("fornecedorExternoId.equals=" + (fornecedorExternoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByComplianceExternoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        ComplianceExterno complianceExterno;
-        if (TestUtil.findAll(em, ComplianceExterno.class).isEmpty()) {
-            complianceExterno = ComplianceExternoResourceIT.createEntity(em);
-            em.persist(complianceExterno);
-            em.flush();
-        } else {
-            complianceExterno = TestUtil.findAll(em, ComplianceExterno.class).get(0);
-        }
-        em.persist(complianceExterno);
-        em.flush();
-        usuario.addComplianceExterno(complianceExterno);
-        usuarioRepository.saveAndFlush(usuario);
-        Long complianceExternoId = complianceExterno.getId();
 
-        // Get all the usuarioList where complianceExterno equals to complianceExternoId
-        defaultUsuarioShouldBeFound("complianceExternoId.equals=" + complianceExternoId);
-
-        // Get all the usuarioList where complianceExterno equals to (complianceExternoId + 1)
-        defaultUsuarioShouldNotBeFound("complianceExternoId.equals=" + (complianceExternoId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllUsuariosByComplianceInternoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        ComplianceInterno complianceInterno;
-        if (TestUtil.findAll(em, ComplianceInterno.class).isEmpty()) {
-            complianceInterno = ComplianceInternoResourceIT.createEntity(em);
-            em.persist(complianceInterno);
-            em.flush();
-        } else {
-            complianceInterno = TestUtil.findAll(em, ComplianceInterno.class).get(0);
-        }
-        em.persist(complianceInterno);
-        em.flush();
-        usuario.addComplianceInterno(complianceInterno);
-        usuarioRepository.saveAndFlush(usuario);
-        Long complianceInternoId = complianceInterno.getId();
-
-        // Get all the usuarioList where complianceInterno equals to complianceInternoId
-        defaultUsuarioShouldBeFound("complianceInternoId.equals=" + complianceInternoId);
-
-        // Get all the usuarioList where complianceInterno equals to (complianceInternoId + 1)
-        defaultUsuarioShouldNotBeFound("complianceInternoId.equals=" + (complianceInternoId + 1));
-    }
 
     @Test
     @Transactional
@@ -790,57 +681,9 @@ class UsuarioResourceIT {
         defaultUsuarioShouldNotBeFound("funcionarioId.equals=" + (funcionarioId + 1));
     }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByMacroProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        MacroProcesso macroProcesso;
-        if (TestUtil.findAll(em, MacroProcesso.class).isEmpty()) {
-            macroProcesso = MacroProcessoResourceIT.createEntity(em);
-            em.persist(macroProcesso);
-            em.flush();
-        } else {
-            macroProcesso = TestUtil.findAll(em, MacroProcesso.class).get(0);
-        }
-        em.persist(macroProcesso);
-        em.flush();
-        usuario.addMacroProcesso(macroProcesso);
-        usuarioRepository.saveAndFlush(usuario);
-        Long macroProcessoId = macroProcesso.getId();
 
-        // Get all the usuarioList where macroProcesso equals to macroProcessoId
-        defaultUsuarioShouldBeFound("macroProcessoId.equals=" + macroProcessoId);
 
-        // Get all the usuarioList where macroProcesso equals to (macroProcessoId + 1)
-        defaultUsuarioShouldNotBeFound("macroProcessoId.equals=" + (macroProcessoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByMacroProcessoOrganogramaIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        MacroProcessoOrganograma macroProcessoOrganograma;
-        if (TestUtil.findAll(em, MacroProcessoOrganograma.class).isEmpty()) {
-            macroProcessoOrganograma = MacroProcessoOrganogramaResourceIT.createEntity(em);
-            em.persist(macroProcessoOrganograma);
-            em.flush();
-        } else {
-            macroProcessoOrganograma = TestUtil.findAll(em, MacroProcessoOrganograma.class).get(0);
-        }
-        em.persist(macroProcessoOrganograma);
-        em.flush();
-        usuario.addMacroProcessoOrganograma(macroProcessoOrganograma);
-        usuarioRepository.saveAndFlush(usuario);
-        Long macroProcessoOrganogramaId = macroProcessoOrganograma.getId();
-
-        // Get all the usuarioList where macroProcessoOrganograma equals to macroProcessoOrganogramaId
-        defaultUsuarioShouldBeFound("macroProcessoOrganogramaId.equals=" + macroProcessoOrganogramaId);
-
-        // Get all the usuarioList where macroProcessoOrganograma equals to (macroProcessoOrganogramaId + 1)
-        defaultUsuarioShouldNotBeFound("macroProcessoOrganogramaId.equals=" + (macroProcessoOrganogramaId + 1));
-    }
 
     @Test
     @Transactional
@@ -868,135 +711,15 @@ class UsuarioResourceIT {
         defaultUsuarioShouldNotBeFound("organogramaId.equals=" + (organogramaId + 1));
     }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        Processo processo;
-        if (TestUtil.findAll(em, Processo.class).isEmpty()) {
-            processo = ProcessoResourceIT.createEntity(em);
-            em.persist(processo);
-            em.flush();
-        } else {
-            processo = TestUtil.findAll(em, Processo.class).get(0);
-        }
-        em.persist(processo);
-        em.flush();
-        usuario.addProcesso(processo);
-        usuarioRepository.saveAndFlush(usuario);
-        Long processoId = processo.getId();
 
-        // Get all the usuarioList where processo equals to processoId
-        defaultUsuarioShouldBeFound("processoId.equals=" + processoId);
 
-        // Get all the usuarioList where processo equals to (processoId + 1)
-        defaultUsuarioShouldNotBeFound("processoId.equals=" + (processoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByClienteExternoProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        ClienteExternoProcesso clienteExternoProcesso;
-        if (TestUtil.findAll(em, ClienteExternoProcesso.class).isEmpty()) {
-            clienteExternoProcesso = ClienteExternoProcessoResourceIT.createEntity(em);
-            em.persist(clienteExternoProcesso);
-            em.flush();
-        } else {
-            clienteExternoProcesso = TestUtil.findAll(em, ClienteExternoProcesso.class).get(0);
-        }
-        em.persist(clienteExternoProcesso);
-        em.flush();
-        usuario.addClienteExternoProcesso(clienteExternoProcesso);
-        usuarioRepository.saveAndFlush(usuario);
-        Long clienteExternoProcessoId = clienteExternoProcesso.getId();
 
-        // Get all the usuarioList where clienteExternoProcesso equals to clienteExternoProcessoId
-        defaultUsuarioShouldBeFound("clienteExternoProcessoId.equals=" + clienteExternoProcessoId);
 
-        // Get all the usuarioList where clienteExternoProcesso equals to (clienteExternoProcessoId + 1)
-        defaultUsuarioShouldNotBeFound("clienteExternoProcessoId.equals=" + (clienteExternoProcessoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByComplianceExternoProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        ComplianceExternoProcesso complianceExternoProcesso;
-        if (TestUtil.findAll(em, ComplianceExternoProcesso.class).isEmpty()) {
-            complianceExternoProcesso = ComplianceExternoProcessoResourceIT.createEntity(em);
-            em.persist(complianceExternoProcesso);
-            em.flush();
-        } else {
-            complianceExternoProcesso = TestUtil.findAll(em, ComplianceExternoProcesso.class).get(0);
-        }
-        em.persist(complianceExternoProcesso);
-        em.flush();
-        usuario.addComplianceExternoProcesso(complianceExternoProcesso);
-        usuarioRepository.saveAndFlush(usuario);
-        Long complianceExternoProcessoId = complianceExternoProcesso.getId();
 
-        // Get all the usuarioList where complianceExternoProcesso equals to complianceExternoProcessoId
-        defaultUsuarioShouldBeFound("complianceExternoProcessoId.equals=" + complianceExternoProcessoId);
 
-        // Get all the usuarioList where complianceExternoProcesso equals to (complianceExternoProcessoId + 1)
-        defaultUsuarioShouldNotBeFound("complianceExternoProcessoId.equals=" + (complianceExternoProcessoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllUsuariosByFornecedorExternoProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        FornecedorExternoProcesso fornecedorExternoProcesso;
-        if (TestUtil.findAll(em, FornecedorExternoProcesso.class).isEmpty()) {
-            fornecedorExternoProcesso = FornecedorExternoProcessoResourceIT.createEntity(em);
-            em.persist(fornecedorExternoProcesso);
-            em.flush();
-        } else {
-            fornecedorExternoProcesso = TestUtil.findAll(em, FornecedorExternoProcesso.class).get(0);
-        }
-        em.persist(fornecedorExternoProcesso);
-        em.flush();
-        usuario.addFornecedorExternoProcesso(fornecedorExternoProcesso);
-        usuarioRepository.saveAndFlush(usuario);
-        Long fornecedorExternoProcessoId = fornecedorExternoProcesso.getId();
-
-        // Get all the usuarioList where fornecedorExternoProcesso equals to fornecedorExternoProcessoId
-        defaultUsuarioShouldBeFound("fornecedorExternoProcessoId.equals=" + fornecedorExternoProcessoId);
-
-        // Get all the usuarioList where fornecedorExternoProcesso equals to (fornecedorExternoProcessoId + 1)
-        defaultUsuarioShouldNotBeFound("fornecedorExternoProcessoId.equals=" + (fornecedorExternoProcessoId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllUsuariosByClienteInternoProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        ClienteInternoProcesso clienteInternoProcesso;
-        if (TestUtil.findAll(em, ClienteInternoProcesso.class).isEmpty()) {
-            clienteInternoProcesso = ClienteInternoProcessoResourceIT.createEntity(em);
-            em.persist(clienteInternoProcesso);
-            em.flush();
-        } else {
-            clienteInternoProcesso = TestUtil.findAll(em, ClienteInternoProcesso.class).get(0);
-        }
-        em.persist(clienteInternoProcesso);
-        em.flush();
-        usuario.addClienteInternoProcesso(clienteInternoProcesso);
-        usuarioRepository.saveAndFlush(usuario);
-        Long clienteInternoProcessoId = clienteInternoProcesso.getId();
-
-        // Get all the usuarioList where clienteInternoProcesso equals to clienteInternoProcessoId
-        defaultUsuarioShouldBeFound("clienteInternoProcessoId.equals=" + clienteInternoProcessoId);
-
-        // Get all the usuarioList where clienteInternoProcesso equals to (clienteInternoProcessoId + 1)
-        defaultUsuarioShouldNotBeFound("clienteInternoProcessoId.equals=" + (clienteInternoProcessoId + 1));
-    }
 
     @Test
     @Transactional
@@ -1022,58 +745,6 @@ class UsuarioResourceIT {
 
         // Get all the usuarioList where funcionarioOrganograma equals to (funcionarioOrganogramaId + 1)
         defaultUsuarioShouldNotBeFound("funcionarioOrganogramaId.equals=" + (funcionarioOrganogramaId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllUsuariosByComplianceInternoProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        ComplianceInternoProcesso complianceInternoProcesso;
-        if (TestUtil.findAll(em, ComplianceInternoProcesso.class).isEmpty()) {
-            complianceInternoProcesso = ComplianceInternoProcessoResourceIT.createEntity(em);
-            em.persist(complianceInternoProcesso);
-            em.flush();
-        } else {
-            complianceInternoProcesso = TestUtil.findAll(em, ComplianceInternoProcesso.class).get(0);
-        }
-        em.persist(complianceInternoProcesso);
-        em.flush();
-        usuario.addComplianceInternoProcesso(complianceInternoProcesso);
-        usuarioRepository.saveAndFlush(usuario);
-        Long complianceInternoProcessoId = complianceInternoProcesso.getId();
-
-        // Get all the usuarioList where complianceInternoProcesso equals to complianceInternoProcessoId
-        defaultUsuarioShouldBeFound("complianceInternoProcessoId.equals=" + complianceInternoProcessoId);
-
-        // Get all the usuarioList where complianceInternoProcesso equals to (complianceInternoProcessoId + 1)
-        defaultUsuarioShouldNotBeFound("complianceInternoProcessoId.equals=" + (complianceInternoProcessoId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllUsuariosByFornecedorInternoProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        usuarioRepository.saveAndFlush(usuario);
-        FornecedorInternoProcesso fornecedorInternoProcesso;
-        if (TestUtil.findAll(em, FornecedorInternoProcesso.class).isEmpty()) {
-            fornecedorInternoProcesso = FornecedorInternoProcessoResourceIT.createEntity(em);
-            em.persist(fornecedorInternoProcesso);
-            em.flush();
-        } else {
-            fornecedorInternoProcesso = TestUtil.findAll(em, FornecedorInternoProcesso.class).get(0);
-        }
-        em.persist(fornecedorInternoProcesso);
-        em.flush();
-        usuario.addFornecedorInternoProcesso(fornecedorInternoProcesso);
-        usuarioRepository.saveAndFlush(usuario);
-        Long fornecedorInternoProcessoId = fornecedorInternoProcesso.getId();
-
-        // Get all the usuarioList where fornecedorInternoProcesso equals to fornecedorInternoProcessoId
-        defaultUsuarioShouldBeFound("fornecedorInternoProcessoId.equals=" + fornecedorInternoProcessoId);
-
-        // Get all the usuarioList where fornecedorInternoProcesso equals to (fornecedorInternoProcessoId + 1)
-        defaultUsuarioShouldNotBeFound("fornecedorInternoProcessoId.equals=" + (fornecedorInternoProcessoId + 1));
     }
 
     @Test

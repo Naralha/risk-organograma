@@ -99,42 +99,7 @@ public class EmpresaQueryService extends QueryService<Empresa> {
             if (criteria.getnVarDescricao() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getnVarDescricao(), Empresa_.nVarDescricao));
             }
-            if (criteria.getClienteExternoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getClienteExternoId(),
-                            root -> root.join(Empresa_.clienteExternos, JoinType.LEFT).get(ClienteExterno_.id)
-                        )
-                    );
-            }
-            if (criteria.getFornecedorExternoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getFornecedorExternoId(),
-                            root -> root.join(Empresa_.fornecedorExternos, JoinType.LEFT).get(FornecedorExterno_.id)
-                        )
-                    );
-            }
-            if (criteria.getComplianceExternoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getComplianceExternoId(),
-                            root -> root.join(Empresa_.complianceExternos, JoinType.LEFT).get(ComplianceExterno_.id)
-                        )
-                    );
-            }
-            if (criteria.getComplianceInternoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getComplianceInternoId(),
-                            root -> root.join(Empresa_.complianceInternos, JoinType.LEFT).get(ComplianceInterno_.id)
-                        )
-                    );
-            }
+
             if (criteria.getFuncionarioId() != null) {
                 specification =
                     specification.and(
@@ -144,24 +109,6 @@ public class EmpresaQueryService extends QueryService<Empresa> {
                         )
                     );
             }
-//            if (criteria.getMacroProcessoId() != null) {
-//                specification =
-//                    specification.and(
-//                        buildSpecification(
-//                            criteria.getMacroProcessoId(),
-//                            root -> root.join(Empresa_.macroProcessos, JoinType.LEFT).get(MacroProcesso_.id)
-//                        )
-//                    );
-//            }
-//            if (criteria.getMacroProcessoOrganogramaId() != null) {
-//                specification =
-//                    specification.and(
-//                        buildSpecification(
-//                            criteria.getMacroProcessoOrganogramaId(),
-//                            root -> root.join(Empresa_.macroProcessoOrganogramas, JoinType.LEFT).get(MacroProcessoOrganograma_.id)
-//                        )
-//                    );
-//            }
             if (criteria.getOrganogramaId() != null) {
                 specification =
                     specification.and(
@@ -171,12 +118,6 @@ public class EmpresaQueryService extends QueryService<Empresa> {
                         )
                     );
             }
-//            if (criteria.getProcessoId() != null) {
-//                specification =
-//                    specification.and(
-//                        buildSpecification(criteria.getProcessoId(), root -> root.join(Empresa_.processos, JoinType.LEFT).get(Processo_.id))
-//                    );
-//            }
             if (criteria.getUsuarioId() != null) {
                 specification =
                     specification.and(

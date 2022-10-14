@@ -7,11 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.sld.riskcomplianceservice.IntegrationTest;
 import io.sld.riskcomplianceservice.TestUtil;
-import io.sld.riskcomplianceservice.domain.entity.ClienteExterno;
-import io.sld.riskcomplianceservice.domain.entity.ComplianceExterno;
-import io.sld.riskcomplianceservice.domain.entity.ComplianceInterno;
 import io.sld.riskcomplianceservice.domain.entity.Empresa;
-import io.sld.riskcomplianceservice.domain.entity.FornecedorExterno;
 import io.sld.riskcomplianceservice.domain.entity.Funcionario;
 import io.sld.riskcomplianceservice.domain.entity.Organograma;
 import io.sld.riskcomplianceservice.domain.entity.Usuario;
@@ -461,109 +457,13 @@ class EmpresaResourceIT {
         defaultEmpresaShouldBeFound("nVarDescricao.doesNotContain=" + UPDATED_N_VAR_DESCRICAO);
     }
 
-    @Test
-    @Transactional
-    void getAllEmpresasByClienteExternoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        empresaRepository.saveAndFlush(empresa);
-        ClienteExterno clienteExterno;
-        if (TestUtil.findAll(em, ClienteExterno.class).isEmpty()) {
-            clienteExterno = ClienteExternoResourceIT.createEntity(em);
-            em.persist(clienteExterno);
-            em.flush();
-        } else {
-            clienteExterno = TestUtil.findAll(em, ClienteExterno.class).get(0);
-        }
-        em.persist(clienteExterno);
-        em.flush();
-        empresa.addClienteExterno(clienteExterno);
-        empresaRepository.saveAndFlush(empresa);
-        Long clienteExternoId = clienteExterno.getId();
 
-        // Get all the empresaList where clienteExterno equals to clienteExternoId
-        defaultEmpresaShouldBeFound("clienteExternoId.equals=" + clienteExternoId);
 
-        // Get all the empresaList where clienteExterno equals to (clienteExternoId + 1)
-        defaultEmpresaShouldNotBeFound("clienteExternoId.equals=" + (clienteExternoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllEmpresasByFornecedorExternoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        empresaRepository.saveAndFlush(empresa);
-        FornecedorExterno fornecedorExterno;
-        if (TestUtil.findAll(em, FornecedorExterno.class).isEmpty()) {
-            fornecedorExterno = FornecedorExternoResourceIT.createEntity(em);
-            em.persist(fornecedorExterno);
-            em.flush();
-        } else {
-            fornecedorExterno = TestUtil.findAll(em, FornecedorExterno.class).get(0);
-        }
-        em.persist(fornecedorExterno);
-        em.flush();
-        empresa.addFornecedorExterno(fornecedorExterno);
-        empresaRepository.saveAndFlush(empresa);
-        Long fornecedorExternoId = fornecedorExterno.getId();
 
-        // Get all the empresaList where fornecedorExterno equals to fornecedorExternoId
-        defaultEmpresaShouldBeFound("fornecedorExternoId.equals=" + fornecedorExternoId);
 
-        // Get all the empresaList where fornecedorExterno equals to (fornecedorExternoId + 1)
-        defaultEmpresaShouldNotBeFound("fornecedorExternoId.equals=" + (fornecedorExternoId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllEmpresasByComplianceExternoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        empresaRepository.saveAndFlush(empresa);
-        ComplianceExterno complianceExterno;
-        if (TestUtil.findAll(em, ComplianceExterno.class).isEmpty()) {
-            complianceExterno = ComplianceExternoResourceIT.createEntity(em);
-            em.persist(complianceExterno);
-            em.flush();
-        } else {
-            complianceExterno = TestUtil.findAll(em, ComplianceExterno.class).get(0);
-        }
-        em.persist(complianceExterno);
-        em.flush();
-        empresa.addComplianceExterno(complianceExterno);
-        empresaRepository.saveAndFlush(empresa);
-        Long complianceExternoId = complianceExterno.getId();
 
-        // Get all the empresaList where complianceExterno equals to complianceExternoId
-        defaultEmpresaShouldBeFound("complianceExternoId.equals=" + complianceExternoId);
-
-        // Get all the empresaList where complianceExterno equals to (complianceExternoId + 1)
-        defaultEmpresaShouldNotBeFound("complianceExternoId.equals=" + (complianceExternoId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllEmpresasByComplianceInternoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        empresaRepository.saveAndFlush(empresa);
-        ComplianceInterno complianceInterno;
-        if (TestUtil.findAll(em, ComplianceInterno.class).isEmpty()) {
-            complianceInterno = ComplianceInternoResourceIT.createEntity(em);
-            em.persist(complianceInterno);
-            em.flush();
-        } else {
-            complianceInterno = TestUtil.findAll(em, ComplianceInterno.class).get(0);
-        }
-        em.persist(complianceInterno);
-        em.flush();
-        empresa.addComplianceInterno(complianceInterno);
-        empresaRepository.saveAndFlush(empresa);
-        Long complianceInternoId = complianceInterno.getId();
-
-        // Get all the empresaList where complianceInterno equals to complianceInternoId
-        defaultEmpresaShouldBeFound("complianceInternoId.equals=" + complianceInternoId);
-
-        // Get all the empresaList where complianceInterno equals to (complianceInternoId + 1)
-        defaultEmpresaShouldNotBeFound("complianceInternoId.equals=" + (complianceInternoId + 1));
-    }
 
     @Test
     @Transactional

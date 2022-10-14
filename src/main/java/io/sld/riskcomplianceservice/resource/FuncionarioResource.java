@@ -90,7 +90,7 @@ public class FuncionarioResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/funcionarios/{idnVarFuncionario}")
-    public ResponseEntity<FuncionarioDTO> updateFuncionario(
+    public ResponseEntity<FuncionarioDTO>  updateFuncionario(
         @PathVariable(value = "idnVarFuncionario", required = false) final UUID idnVarFuncionario,
         @Valid @RequestBody FuncionarioDTO funcionarioDTO
     ) throws URISyntaxException {
@@ -195,9 +195,9 @@ public class FuncionarioResource {
     }
 
     /**
-     * {@code DELETE  /funcionarios/:id} : delete the "id" funcionario.
+     * {@code DELETE  /funcionarios/:idnVarFuncionario} : delete the "idnVarFuncionario" funcionario.
      *
-     * @param idnVarFuncionario the id of the funcionarioDTO to delete.
+     * @param idnVarFuncionario the uuid of the funcionarioDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/funcionarios/{idnVarFuncionario}")

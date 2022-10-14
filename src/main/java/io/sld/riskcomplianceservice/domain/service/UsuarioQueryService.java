@@ -106,66 +106,12 @@ public class UsuarioQueryService extends QueryService<Usuario> {
             if (criteria.getnVarSenha() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getnVarSenha(), Usuario_.nVarSenha));
             }
-            if (criteria.getClienteExternoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getClienteExternoId(),
-                            root -> root.join(Usuario_.clienteExternos, JoinType.LEFT).get(ClienteExterno_.id)
-                        )
-                    );
-            }
-            if (criteria.getFornecedorExternoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getFornecedorExternoId(),
-                            root -> root.join(Usuario_.fornecedorExternos, JoinType.LEFT).get(FornecedorExterno_.id)
-                        )
-                    );
-            }
-            if (criteria.getComplianceExternoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getComplianceExternoId(),
-                            root -> root.join(Usuario_.complianceExternos, JoinType.LEFT).get(ComplianceExterno_.id)
-                        )
-                    );
-            }
-            if (criteria.getComplianceInternoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getComplianceInternoId(),
-                            root -> root.join(Usuario_.complianceInternos, JoinType.LEFT).get(ComplianceInterno_.id)
-                        )
-                    );
-            }
             if (criteria.getFuncionarioId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
                             criteria.getFuncionarioId(),
                             root -> root.join(Usuario_.funcionarios, JoinType.LEFT).get(Funcionario_.id)
-                        )
-                    );
-            }
-            if (criteria.getMacroProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getMacroProcessoId(),
-                            root -> root.join(Usuario_.macroProcessos, JoinType.LEFT).get(MacroProcesso_.id)
-                        )
-                    );
-            }
-            if (criteria.getMacroProcessoOrganogramaId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getMacroProcessoOrganogramaId(),
-                            root -> root.join(Usuario_.macroProcessoOrganogramas, JoinType.LEFT).get(MacroProcessoOrganograma_.id)
                         )
                     );
             }
@@ -178,72 +124,12 @@ public class UsuarioQueryService extends QueryService<Usuario> {
                         )
                     );
             }
-            if (criteria.getProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(criteria.getProcessoId(), root -> root.join(Usuario_.processos, JoinType.LEFT).get(Processo_.id))
-                    );
-            }
-            if (criteria.getClienteExternoProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getClienteExternoProcessoId(),
-                            root -> root.join(Usuario_.clienteExternoProcessos, JoinType.LEFT).get(ClienteExternoProcesso_.id)
-                        )
-                    );
-            }
-            if (criteria.getComplianceExternoProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getComplianceExternoProcessoId(),
-                            root -> root.join(Usuario_.complianceExternoProcessos, JoinType.LEFT).get(ComplianceExternoProcesso_.id)
-                        )
-                    );
-            }
-            if (criteria.getFornecedorExternoProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getFornecedorExternoProcessoId(),
-                            root -> root.join(Usuario_.fornecedorExternoProcessos, JoinType.LEFT).get(FornecedorExternoProcesso_.id)
-                        )
-                    );
-            }
-            if (criteria.getClienteInternoProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getClienteInternoProcessoId(),
-                            root -> root.join(Usuario_.clienteInternoProcessos, JoinType.LEFT).get(ClienteInternoProcesso_.id)
-                        )
-                    );
-            }
             if (criteria.getFuncionarioOrganogramaId() != null) {
                 specification =
                     specification.and(
                         buildSpecification(
                             criteria.getFuncionarioOrganogramaId(),
                             root -> root.join(Usuario_.funcionarioOrganogramas, JoinType.LEFT).get(FuncionarioOrganograma_.id)
-                        )
-                    );
-            }
-            if (criteria.getComplianceInternoProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getComplianceInternoProcessoId(),
-                            root -> root.join(Usuario_.complianceInternoProcessos, JoinType.LEFT).get(ComplianceInternoProcesso_.id)
-                        )
-                    );
-            }
-            if (criteria.getFornecedorInternoProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getFornecedorInternoProcessoId(),
-                            root -> root.join(Usuario_.fornecedorInternoProcessos, JoinType.LEFT).get(FornecedorInternoProcesso_.id)
                         )
                     );
             }

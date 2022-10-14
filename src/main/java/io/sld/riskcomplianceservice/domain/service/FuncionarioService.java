@@ -55,6 +55,10 @@ public class FuncionarioService {
     public FuncionarioDTO update(FuncionarioDTO funcionarioDTO) {
         log.debug("Request to save Funcionario : {}", funcionarioDTO);
         Funcionario funcionario = funcionarioMapper.toEntity(funcionarioDTO);
+
+        Optional<Funcionario> optionalFuncionario = funcionarioRepository.findByIdnVarFuncionario(funcionarioDTO.getIdnVarFuncionario());
+        funcionario.setId(optionalFuncionario.get().getId());
+
         funcionario = funcionarioRepository.save(funcionario);
         return funcionarioMapper.toDto(funcionario);
     }

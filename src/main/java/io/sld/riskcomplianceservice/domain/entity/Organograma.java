@@ -60,25 +60,12 @@ public class Organograma implements Serializable {
     @Column(name = "idn_var_roof_top", nullable = false)
     private String idnVarRoofTop;
 
-    @OneToMany(mappedBy = "organograma")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "empresa", "usuario", "macroProcesso", "organograma" }, allowSetters = true)
-    private Set<MacroProcessoOrganograma> macroProcessoOrganogramas = new HashSet<>();
 
-    @OneToMany(mappedBy = "organograma")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "organograma", "processo", "usuario" }, allowSetters = true)
-    private Set<ClienteInternoProcesso> clienteInternoProcessos = new HashSet<>();
 
     @OneToMany(mappedBy = "organograma")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "funcionario", "organograma", "usuario" }, allowSetters = true)
     private Set<FuncionarioOrganograma> funcionarioOrganogramas = new HashSet<>();
-
-    @OneToMany(mappedBy = "organograma")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "organograma", "processo", "usuario" }, allowSetters = true)
-    private Set<FornecedorInternoProcesso> fornecedorInternoProcessos = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(
@@ -229,68 +216,6 @@ public class Organograma implements Serializable {
         this.idnVarRoofTop = idnVarRoofTop;
     }
 
-    public Set<MacroProcessoOrganograma> getMacroProcessoOrganogramas() {
-        return this.macroProcessoOrganogramas;
-    }
-
-    public void setMacroProcessoOrganogramas(Set<MacroProcessoOrganograma> macroProcessoOrganogramas) {
-        if (this.macroProcessoOrganogramas != null) {
-            this.macroProcessoOrganogramas.forEach(i -> i.setOrganograma(null));
-        }
-        if (macroProcessoOrganogramas != null) {
-            macroProcessoOrganogramas.forEach(i -> i.setOrganograma(this));
-        }
-        this.macroProcessoOrganogramas = macroProcessoOrganogramas;
-    }
-
-    public Organograma macroProcessoOrganogramas(Set<MacroProcessoOrganograma> macroProcessoOrganogramas) {
-        this.setMacroProcessoOrganogramas(macroProcessoOrganogramas);
-        return this;
-    }
-
-    public Organograma addMacroProcessoOrganograma(MacroProcessoOrganograma macroProcessoOrganograma) {
-        this.macroProcessoOrganogramas.add(macroProcessoOrganograma);
-        macroProcessoOrganograma.setOrganograma(this);
-        return this;
-    }
-
-    public Organograma removeMacroProcessoOrganograma(MacroProcessoOrganograma macroProcessoOrganograma) {
-        this.macroProcessoOrganogramas.remove(macroProcessoOrganograma);
-        macroProcessoOrganograma.setOrganograma(null);
-        return this;
-    }
-
-    public Set<ClienteInternoProcesso> getClienteInternoProcessos() {
-        return this.clienteInternoProcessos;
-    }
-
-    public void setClienteInternoProcessos(Set<ClienteInternoProcesso> clienteInternoProcessos) {
-        if (this.clienteInternoProcessos != null) {
-            this.clienteInternoProcessos.forEach(i -> i.setOrganograma(null));
-        }
-        if (clienteInternoProcessos != null) {
-            clienteInternoProcessos.forEach(i -> i.setOrganograma(this));
-        }
-        this.clienteInternoProcessos = clienteInternoProcessos;
-    }
-
-    public Organograma clienteInternoProcessos(Set<ClienteInternoProcesso> clienteInternoProcessos) {
-        this.setClienteInternoProcessos(clienteInternoProcessos);
-        return this;
-    }
-
-    public Organograma addClienteInternoProcesso(ClienteInternoProcesso clienteInternoProcesso) {
-        this.clienteInternoProcessos.add(clienteInternoProcesso);
-        clienteInternoProcesso.setOrganograma(this);
-        return this;
-    }
-
-    public Organograma removeClienteInternoProcesso(ClienteInternoProcesso clienteInternoProcesso) {
-        this.clienteInternoProcessos.remove(clienteInternoProcesso);
-        clienteInternoProcesso.setOrganograma(null);
-        return this;
-    }
-
     public Set<FuncionarioOrganograma> getFuncionarioOrganogramas() {
         return this.funcionarioOrganogramas;
     }
@@ -319,37 +244,6 @@ public class Organograma implements Serializable {
     public Organograma removeFuncionarioOrganograma(FuncionarioOrganograma funcionarioOrganograma) {
         this.funcionarioOrganogramas.remove(funcionarioOrganograma);
         funcionarioOrganograma.setOrganograma(null);
-        return this;
-    }
-
-    public Set<FornecedorInternoProcesso> getFornecedorInternoProcessos() {
-        return this.fornecedorInternoProcessos;
-    }
-
-    public void setFornecedorInternoProcessos(Set<FornecedorInternoProcesso> fornecedorInternoProcessos) {
-        if (this.fornecedorInternoProcessos != null) {
-            this.fornecedorInternoProcessos.forEach(i -> i.setOrganograma(null));
-        }
-        if (fornecedorInternoProcessos != null) {
-            fornecedorInternoProcessos.forEach(i -> i.setOrganograma(this));
-        }
-        this.fornecedorInternoProcessos = fornecedorInternoProcessos;
-    }
-
-    public Organograma fornecedorInternoProcessos(Set<FornecedorInternoProcesso> fornecedorInternoProcessos) {
-        this.setFornecedorInternoProcessos(fornecedorInternoProcessos);
-        return this;
-    }
-
-    public Organograma addFornecedorInternoProcesso(FornecedorInternoProcesso fornecedorInternoProcesso) {
-        this.fornecedorInternoProcessos.add(fornecedorInternoProcesso);
-        fornecedorInternoProcesso.setOrganograma(this);
-        return this;
-    }
-
-    public Organograma removeFornecedorInternoProcesso(FornecedorInternoProcesso fornecedorInternoProcesso) {
-        this.fornecedorInternoProcessos.remove(fornecedorInternoProcesso);
-        fornecedorInternoProcesso.setOrganograma(null);
         return this;
     }
 

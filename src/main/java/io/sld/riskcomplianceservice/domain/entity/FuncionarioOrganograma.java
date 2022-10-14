@@ -51,10 +51,7 @@ public class FuncionarioOrganograma implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(
         value = {
-            "macroProcessoOrganogramas",
-            "clienteInternoProcessos",
             "funcionarioOrganogramas",
-            "fornecedorInternoProcessos",
             "empresa",
             "usuario",
         },
@@ -65,22 +62,9 @@ public class FuncionarioOrganograma implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(
         value = {
-            "clienteExternos",
-            "fornecedorExternos",
-            "complianceExternos",
-            "complianceInternos",
             "funcionarios",
-            "macroProcessos",
-            "macroProcessoOrganogramas",
             "organogramas",
-            "processos",
-            "clienteExternoProcessos",
-            "complianceExternoProcessos",
-            "fornecedorExternoProcessos",
-            "clienteInternoProcessos",
             "funcionarioOrganogramas",
-            "complianceInternoProcessos",
-            "fornecedorInternoProcessos",
             "empresa",
         },
         allowSetters = true

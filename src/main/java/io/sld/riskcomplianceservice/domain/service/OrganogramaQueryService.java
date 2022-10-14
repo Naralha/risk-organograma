@@ -113,24 +113,6 @@ public class OrganogramaQueryService extends QueryService<Organograma> {
             if (criteria.getIdnVarRoofTop() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getIdnVarRoofTop(), Organograma_.idnVarRoofTop));
             }
-            if (criteria.getMacroProcessoOrganogramaId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getMacroProcessoOrganogramaId(),
-                            root -> root.join(Organograma_.macroProcessoOrganogramas, JoinType.LEFT).get(MacroProcessoOrganograma_.id)
-                        )
-                    );
-            }
-            if (criteria.getClienteInternoProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getClienteInternoProcessoId(),
-                            root -> root.join(Organograma_.clienteInternoProcessos, JoinType.LEFT).get(ClienteInternoProcesso_.id)
-                        )
-                    );
-            }
             if (criteria.getFuncionarioOrganogramaId() != null) {
                 specification =
                     specification.and(
@@ -140,15 +122,7 @@ public class OrganogramaQueryService extends QueryService<Organograma> {
                         )
                     );
             }
-            if (criteria.getFornecedorInternoProcessoId() != null) {
-                specification =
-                    specification.and(
-                        buildSpecification(
-                            criteria.getFornecedorInternoProcessoId(),
-                            root -> root.join(Organograma_.fornecedorInternoProcessos, JoinType.LEFT).get(FornecedorInternoProcesso_.id)
-                        )
-                    );
-            }
+
             if (criteria.getEmpresaId() != null) {
                 specification =
                     specification.and(

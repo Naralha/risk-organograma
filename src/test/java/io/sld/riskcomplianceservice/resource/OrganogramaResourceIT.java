@@ -7,11 +7,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import io.sld.riskcomplianceservice.IntegrationTest;
 import io.sld.riskcomplianceservice.TestUtil;
-import io.sld.riskcomplianceservice.domain.entity.ClienteInternoProcesso;
 import io.sld.riskcomplianceservice.domain.entity.Empresa;
-import io.sld.riskcomplianceservice.domain.entity.FornecedorInternoProcesso;
 import io.sld.riskcomplianceservice.domain.entity.FuncionarioOrganograma;
-import io.sld.riskcomplianceservice.domain.entity.MacroProcessoOrganograma;
 import io.sld.riskcomplianceservice.domain.entity.Organograma;
 import io.sld.riskcomplianceservice.domain.entity.Usuario;
 import io.sld.riskcomplianceservice.domain.repository.OrganogramaRepository;
@@ -874,57 +871,9 @@ class OrganogramaResourceIT {
         defaultOrganogramaShouldBeFound("idnVarRoofTop.doesNotContain=" + UPDATED_IDN_VAR_ROOF_TOP);
     }
 
-    @Test
-    @Transactional
-    void getAllOrganogramasByMacroProcessoOrganogramaIsEqualToSomething() throws Exception {
-        // Initialize the database
-        organogramaRepository.saveAndFlush(organograma);
-        MacroProcessoOrganograma macroProcessoOrganograma;
-        if (TestUtil.findAll(em, MacroProcessoOrganograma.class).isEmpty()) {
-            macroProcessoOrganograma = MacroProcessoOrganogramaResourceIT.createEntity(em);
-            em.persist(macroProcessoOrganograma);
-            em.flush();
-        } else {
-            macroProcessoOrganograma = TestUtil.findAll(em, MacroProcessoOrganograma.class).get(0);
-        }
-        em.persist(macroProcessoOrganograma);
-        em.flush();
-        organograma.addMacroProcessoOrganograma(macroProcessoOrganograma);
-        organogramaRepository.saveAndFlush(organograma);
-        Long macroProcessoOrganogramaId = macroProcessoOrganograma.getId();
 
-        // Get all the organogramaList where macroProcessoOrganograma equals to macroProcessoOrganogramaId
-        defaultOrganogramaShouldBeFound("macroProcessoOrganogramaId.equals=" + macroProcessoOrganogramaId);
 
-        // Get all the organogramaList where macroProcessoOrganograma equals to (macroProcessoOrganogramaId + 1)
-        defaultOrganogramaShouldNotBeFound("macroProcessoOrganogramaId.equals=" + (macroProcessoOrganogramaId + 1));
-    }
 
-    @Test
-    @Transactional
-    void getAllOrganogramasByClienteInternoProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        organogramaRepository.saveAndFlush(organograma);
-        ClienteInternoProcesso clienteInternoProcesso;
-        if (TestUtil.findAll(em, ClienteInternoProcesso.class).isEmpty()) {
-            clienteInternoProcesso = ClienteInternoProcessoResourceIT.createEntity(em);
-            em.persist(clienteInternoProcesso);
-            em.flush();
-        } else {
-            clienteInternoProcesso = TestUtil.findAll(em, ClienteInternoProcesso.class).get(0);
-        }
-        em.persist(clienteInternoProcesso);
-        em.flush();
-        organograma.addClienteInternoProcesso(clienteInternoProcesso);
-        organogramaRepository.saveAndFlush(organograma);
-        Long clienteInternoProcessoId = clienteInternoProcesso.getId();
-
-        // Get all the organogramaList where clienteInternoProcesso equals to clienteInternoProcessoId
-        defaultOrganogramaShouldBeFound("clienteInternoProcessoId.equals=" + clienteInternoProcessoId);
-
-        // Get all the organogramaList where clienteInternoProcesso equals to (clienteInternoProcessoId + 1)
-        defaultOrganogramaShouldNotBeFound("clienteInternoProcessoId.equals=" + (clienteInternoProcessoId + 1));
-    }
 
     @Test
     @Transactional
@@ -950,32 +899,6 @@ class OrganogramaResourceIT {
 
         // Get all the organogramaList where funcionarioOrganograma equals to (funcionarioOrganogramaId + 1)
         defaultOrganogramaShouldNotBeFound("funcionarioOrganogramaId.equals=" + (funcionarioOrganogramaId + 1));
-    }
-
-    @Test
-    @Transactional
-    void getAllOrganogramasByFornecedorInternoProcessoIsEqualToSomething() throws Exception {
-        // Initialize the database
-        organogramaRepository.saveAndFlush(organograma);
-        FornecedorInternoProcesso fornecedorInternoProcesso;
-        if (TestUtil.findAll(em, FornecedorInternoProcesso.class).isEmpty()) {
-            fornecedorInternoProcesso = FornecedorInternoProcessoResourceIT.createEntity(em);
-            em.persist(fornecedorInternoProcesso);
-            em.flush();
-        } else {
-            fornecedorInternoProcesso = TestUtil.findAll(em, FornecedorInternoProcesso.class).get(0);
-        }
-        em.persist(fornecedorInternoProcesso);
-        em.flush();
-        organograma.addFornecedorInternoProcesso(fornecedorInternoProcesso);
-        organogramaRepository.saveAndFlush(organograma);
-        Long fornecedorInternoProcessoId = fornecedorInternoProcesso.getId();
-
-        // Get all the organogramaList where fornecedorInternoProcesso equals to fornecedorInternoProcessoId
-        defaultOrganogramaShouldBeFound("fornecedorInternoProcessoId.equals=" + fornecedorInternoProcessoId);
-
-        // Get all the organogramaList where fornecedorInternoProcesso equals to (fornecedorInternoProcessoId + 1)
-        defaultOrganogramaShouldNotBeFound("fornecedorInternoProcessoId.equals=" + (fornecedorInternoProcessoId + 1));
     }
 
     @Test

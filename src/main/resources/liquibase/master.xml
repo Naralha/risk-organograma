@@ -15,41 +15,15 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122547_added_entity_ClienteExterno.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122647_added_entity_ClienteExternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122747_added_entity_ClienteInternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122847_added_entity_ComplianceExterno.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122947_added_entity_ComplianceExternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123047_added_entity_ComplianceInterno.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123147_added_entity_ComplianceInternoProcesso.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708123247_added_entity_Empresa.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123347_added_entity_FornecedorExterno.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123447_added_entity_FornecedorExternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123547_added_entity_FornecedorInternoProcesso.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708123647_added_entity_Funcionario.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708123747_added_entity_FuncionarioOrganograma.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123847_added_entity_MacroProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123947_added_entity_MacroProcessoOrganograma.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708124047_added_entity_Organograma.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708124147_added_entity_Processo.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708124247_added_entity_Usuario.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="liquibase/changelog/20220708122547_added_entity_constraints_ClienteExterno.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122647_added_entity_constraints_ClienteExternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122747_added_entity_constraints_ClienteInternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122847_added_entity_constraints_ComplianceExterno.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708122947_added_entity_constraints_ComplianceExternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123047_added_entity_constraints_ComplianceInterno.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123147_added_entity_constraints_ComplianceInternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123347_added_entity_constraints_FornecedorExterno.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123447_added_entity_constraints_FornecedorExternoProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123547_added_entity_constraints_FornecedorInternoProcesso.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708123647_added_entity_constraints_Funcionario.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708123747_added_entity_constraints_FuncionarioOrganograma.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123847_added_entity_constraints_MacroProcesso.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708123947_added_entity_constraints_MacroProcessoOrganograma.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708124047_added_entity_constraints_Organograma.xml" relativeToChangelogFile="false"/>
-    <include file="liquibase/changelog/20220708124147_added_entity_constraints_Processo.xml" relativeToChangelogFile="false"/>
     <include file="liquibase/changelog/20220708124247_added_entity_constraints_Usuario.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->

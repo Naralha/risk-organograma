@@ -44,40 +44,11 @@ public class Empresa implements Serializable {
     @Column(name = "n_var_descricao")
     private String nVarDescricao;
 
-    @OneToMany(mappedBy = "empresa")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "clienteExternoProcessos", "empresa", "usuario" }, allowSetters = true)
-    private Set<ClienteExterno> clienteExternos = new HashSet<>();
-
-    @OneToMany(mappedBy = "empresa")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "fornecedorExternoProcessos", "empresa", "usuario" }, allowSetters = true)
-    private Set<FornecedorExterno> fornecedorExternos = new HashSet<>();
-
-    @OneToMany(mappedBy = "empresa")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "complianceExternoProcessos", "empresa", "usuario" }, allowSetters = true)
-    private Set<ComplianceExterno> complianceExternos = new HashSet<>();
-
-    @OneToMany(mappedBy = "empresa")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "complianceInternoProcessos", "empresa", "usuario" }, allowSetters = true)
-    private Set<ComplianceInterno> complianceInternos = new HashSet<>();
 
     @OneToMany(mappedBy = "empresa")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "funcionarioOrganogramas", "empresa", "usuario" }, allowSetters = true)
     private Set<Funcionario> funcionarios = new HashSet<>();
-
-//    @OneToMany(mappedBy = "empresa")
-//    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-//    @JsonIgnoreProperties(value = { "macroProcessoOrganogramas", "empresa", "usuario" }, allowSetters = true)
-//    private Set<MacroProcesso> macroProcessos = new HashSet<>();
-
-//    @OneToMany(mappedBy = "empresa")
-//    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-//    @JsonIgnoreProperties(value = { "empresa", "usuario", "macroProcesso", "organograma" }, allowSetters = true)
-//    private Set<MacroProcessoOrganograma> macroProcessoOrganogramas = new HashSet<>();
 
     @OneToMany(mappedBy = "empresa")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -152,72 +123,6 @@ public class Empresa implements Serializable {
         return this;
     }
 
-
-    public Empresa complianceExternos(Set<ComplianceExterno> complianceExternos) {
-        this.setComplianceExternos(complianceExternos);
-        return this;
-    }
-
-    public Empresa clienteExternos(Set<ClienteExterno> clienteExternos) {
-        this.setClienteExternos(clienteExternos);
-        return this;
-    }
-
-    public Empresa addClienteExterno(ClienteExterno clienteExterno) {
-        this.clienteExternos.add(clienteExterno);
-        clienteExterno.setEmpresa(this);
-        return this;
-    }
-
-    public Empresa removeClienteExterno(ClienteExterno clienteExterno) {
-        this.clienteExternos.remove(clienteExterno);
-        clienteExterno.setEmpresa(null);
-        return this;
-    }
-
-    public Empresa fornecedorExternos(Set<FornecedorExterno> fornecedorExternos) {
-        this.setFornecedorExternos(fornecedorExternos);
-        return this;
-    }
-
-    public Empresa addFornecedorExterno(FornecedorExterno fornecedorExterno) {
-        this.fornecedorExternos.add(fornecedorExterno);
-        fornecedorExterno.setEmpresa(this);
-        return this;
-    }
-
-    public Empresa removeFornecedorExterno(FornecedorExterno fornecedorExterno) {
-        this.fornecedorExternos.remove(fornecedorExterno);
-        fornecedorExterno.setEmpresa(null);
-        return this;
-    }
-    public Empresa addComplianceExterno(ComplianceExterno complianceExterno) {
-        this.complianceExternos.add(complianceExterno);
-        complianceExterno.setEmpresa(this);
-        return this;
-    }
-
-    public Empresa removeComplianceExterno(ComplianceExterno complianceExterno) {
-        this.complianceExternos.remove(complianceExterno);
-        complianceExterno.setEmpresa(null);
-        return this;
-    }
-    public Empresa complianceInternos(Set<ComplianceInterno> complianceInternos) {
-        this.setComplianceInternos(complianceInternos);
-        return this;
-    }
-
-    public Empresa addComplianceInterno(ComplianceInterno complianceInterno) {
-        this.complianceInternos.add(complianceInterno);
-        complianceInterno.setEmpresa(this);
-        return this;
-    }
-
-    public Empresa removeComplianceInterno(ComplianceInterno complianceInterno) {
-        this.complianceInternos.remove(complianceInterno);
-        complianceInterno.setEmpresa(null);
-        return this;
-    }
 
     public Empresa funcionarios(Set<Funcionario> funcionarios) {
         this.setFuncionarios(funcionarios);
