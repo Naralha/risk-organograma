@@ -19,6 +19,15 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
     change-log: classpath:liquibase/master.xml
+server:
+  port: 0
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+      preferIpAddress: true
+
 
 #OpenApi configurations
 springdoc:
