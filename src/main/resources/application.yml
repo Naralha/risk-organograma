@@ -1,7 +1,7 @@
 spring:
   version: 0.1
   application:
-    name: risk-project
+    name: RISK-ORGANOGRAMA
   config:
     import: "optional:configserver:http://localhost:8088"
   datasource:
@@ -20,13 +20,16 @@ spring:
     contexts: dev, faker
     change-log: classpath:liquibase/master.xml
 server:
-  port: 0
+  servlet:
+    context-path: /organograma
+  port: 8081
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-  instance:
-      preferIpAddress: true
+      defaultZone: http://eureka-server:8761/eureka
+#      defaultZone: http://localhost:8761/eureka
+#  instance:
+#      preferIpAddress: true
 
 
 #OpenApi configurations

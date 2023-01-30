@@ -1,4 +1,5 @@
 # risk-project
+adicionei /organograma no root
 
 command to run the backend:
 go to the root directory -> mvnw -Dmaven.test.skip spring-boot:run
