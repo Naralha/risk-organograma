@@ -13,9 +13,13 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface OrganogramaMapper extends EntityMapper<OrganogramaDTO, Organograma> {
+    @Mapping(target = "nVarNome", source = "nVarNome")
     @Mapping(target = "empresa", source = "empresa", qualifiedByName = "empresaId")
     @Mapping(target = "usuario", source = "usuario", qualifiedByName = "usuarioId")
     OrganogramaDTO toDto(Organograma s);
+
+    @Mapping(target = "nVarNome", source = "NVarNome")
+    Organograma toEntity(OrganogramaDTO s);
 
     @Named("empresaId")
     @BeanMapping(ignoreByDefault = true)

@@ -33,6 +33,7 @@ import io.sld.riskcomplianceservice.resource.utils.ResponseUtil;
  * REST controller for managing {@link Funcionario}.
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class FuncionarioResource {
 
@@ -192,6 +193,19 @@ public class FuncionarioResource {
         log.debug("REST request to get Funcionario : {}", idnVarFuncionario);
         Optional<FuncionarioDTO> funcionarioDTO = funcionarioService.findOne(idnVarFuncionario);
         return ResponseUtil.wrapOrNotFound(funcionarioDTO);
+    }
+
+    /**
+     * {@code GET  /funcionarios/:id} : get the "id" funcionario.
+     *
+     * @param empresaId the empresaId of the empresa to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the funcionarioDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/funcionarios/empresaId/{empresaId}")
+    public ResponseEntity<List<FuncionarioDTO>> getFuncionarioByEmpresa(@PathVariable Long empresaId) {
+        log.debug("REST request to get Funcionario : {}", empresaId);
+        List<FuncionarioDTO> listafuncionarioDTO = funcionarioService.findByEmpresa(empresaId);
+        return ResponseEntity.ok().body(listafuncionarioDTO);
     }
 
     /**

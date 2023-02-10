@@ -22,9 +22,6 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class FuncionarioDTO implements Serializable {
 
-//    private Long id;
-
-//    @NotNull
     private UUID idnVarFuncionario;
 
     @NotNull
@@ -34,12 +31,6 @@ public class FuncionarioDTO implements Serializable {
     private String nVarEmail;
 
     private String nVarDescricao;
-
-//    @NotNull
-//    private String idnVarEmpresa;
-
-    @NotNull
-    private String idnvarUsuario;
 
     private EmpresaDTO empresa;
 

@@ -1,9 +1,12 @@
 package io.sld.riskcomplianceservice.domain.repository;
 
+import io.sld.riskcomplianceservice.domain.entity.Empresa;
 import io.sld.riskcomplianceservice.domain.entity.Funcionario;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
+import java.nio.channels.FileChannel;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,4 +21,5 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long>,
 
     void deleteByIdnVarFuncionario(UUID idnVarFuncionario);
 
+    Optional<List<Funcionario>> findByEmpresa(Empresa empresa);
 }

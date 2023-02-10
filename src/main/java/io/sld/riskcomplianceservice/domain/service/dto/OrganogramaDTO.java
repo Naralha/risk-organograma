@@ -23,10 +23,10 @@ public class OrganogramaDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+//    @NotNull
     private String idnVarOrganograma;
 
-    @NotNull
+//    @NotNull
     private String idnVarEmpresa;
 
     @NotNull
@@ -36,15 +36,16 @@ public class OrganogramaDTO implements Serializable {
 
     private String idnVarPaiOrganograma;
 
-    @NotNull
+//    @NotNull
     private String idnvarUsuario;
 
-    @NotNull
+//    @NotNull
     private String idnVarRoofTop;
 
     private EmpresaDTO empresa;
 
     private UsuarioDTO usuario;
+
 
 
 

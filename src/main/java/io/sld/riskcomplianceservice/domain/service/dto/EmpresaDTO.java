@@ -23,10 +23,10 @@ public class EmpresaDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+//    @NotNull
     private String idnVarEmpresa;
 
-    @NotNull
+//    @NotNull
     private String nVarNome;
 
     private String nVarDescricao;

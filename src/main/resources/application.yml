@@ -54,5 +54,20 @@ swagger:
   external-documentation:
   external-documentation-url:
 
+#Logbook
+logbook:
+  include:
+    - /organograma/**
+  filter.enabled: true
+  secure-filter.enabled: true
+  obfuscate:
+    headers:
+    parameters:
+
+logging:
+  level:
+    org:
+      zalando:
+        logbook: trace
 
 

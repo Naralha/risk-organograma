@@ -1,11 +1,15 @@
 package io.sld.riskcomplianceservice.domain.service;
 
+import io.sld.riskcomplianceservice.domain.entity.Empresa;
 import io.sld.riskcomplianceservice.domain.entity.Funcionario;
 import io.sld.riskcomplianceservice.domain.repository.FuncionarioRepository;
 import io.sld.riskcomplianceservice.domain.service.dto.FuncionarioDTO;
 import io.sld.riskcomplianceservice.domain.service.mapper.FuncionarioMapper;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,5 +120,13 @@ public class FuncionarioService {
     public void delete(UUID idnVarFuncionario) {
         log.debug("Request to delete Funcionario : {}", idnVarFuncionario);
         funcionarioRepository.deleteByIdnVarFuncionario(idnVarFuncionario);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FuncionarioDTO> findByEmpresa(Long empresaId) {
+        Empresa empresa = new Empresa();
+        empresa.setId(empresaId);
+
+        return funcionarioRepository.findByEmpresa(empresa).get().stream().map(funcionarioMapper::toDto).collect(Collectors.toList());
     }
 }

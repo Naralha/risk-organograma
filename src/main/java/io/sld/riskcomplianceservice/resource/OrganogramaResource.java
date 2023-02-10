@@ -5,6 +5,8 @@ import io.sld.riskcomplianceservice.domain.repository.OrganogramaRepository;
 import io.sld.riskcomplianceservice.domain.service.OrganogramaQueryService;
 import io.sld.riskcomplianceservice.domain.service.OrganogramaService;
 import io.sld.riskcomplianceservice.domain.service.criteria.OrganogramaCriteria;
+import io.sld.riskcomplianceservice.domain.service.dto.FuncionarioDTO;
+import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaArrayDTO;
 import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaDTO;
 import io.sld.riskcomplianceservice.resource.errors.BadRequestAlertException;
 
@@ -32,6 +34,7 @@ import io.sld.riskcomplianceservice.resource.utils.ResponseUtil;
  * REST controller for managing {@link Organograma}.
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class OrganogramaResource {
 
@@ -61,21 +64,32 @@ public class OrganogramaResource {
     /**
      * {@code POST  /organogramas} : Create a new organograma.
      *
-     * @param organogramaDTO the organogramaDTO to create.
+     * @param organogramaArrayDTO the organogramaArrayDTO to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new organogramaDTO, or with status {@code 400 (Bad Request)} if the organograma has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+//    @PostMapping("/organogramas")
+//    public ResponseEntity<OrganogramaDTO> createOrganogramaa(@Valid @RequestBody OrganogramaDTO organogramaDTO) throws URISyntaxException {
+//        log.debug("REST request to save Organograma : {}", organogramaDTO);
+//        if (organogramaDTO.getId() != null) {
+//            throw new BadRequestAlertException("A new organograma cannot already have an ID", ENTITY_NAME, "idexists");
+//        }
+//        OrganogramaDTO result = organogramaService.save(organogramaDTO);
+//        return ResponseEntity
+//            .created(new URI("/api/organogramas/" + result.getId()))
+//            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+//            .body(result);
+//    }
+
     @PostMapping("/organogramas")
-    public ResponseEntity<OrganogramaDTO> createOrganograma(@Valid @RequestBody OrganogramaDTO organogramaDTO) throws URISyntaxException {
-        log.debug("REST request to save Organograma : {}", organogramaDTO);
-        if (organogramaDTO.getId() != null) {
-            throw new BadRequestAlertException("A new organograma cannot already have an ID", ENTITY_NAME, "idexists");
-        }
-        OrganogramaDTO result = organogramaService.save(organogramaDTO);
-        return ResponseEntity
-            .created(new URI("/api/organogramas/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-            .body(result);
+    public ResponseEntity<OrganogramaArrayDTO> createOrganogram(@RequestBody OrganogramaArrayDTO organogramaArrayDTO) throws URISyntaxException {
+        log.debug("REST request to save Organograma : {}", organogramaArrayDTO);
+
+        organogramaService.save(organogramaArrayDTO);
+
+        return ResponseEntity.created(new URI("/api/organogramas/"))
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, String.valueOf(organogramaArrayDTO)))
+                .body(organogramaArrayDTO);
     }
 
     /**
@@ -189,6 +203,26 @@ public class OrganogramaResource {
         log.debug("REST request to get Organograma : {}", id);
         Optional<OrganogramaDTO> organogramaDTO = organogramaService.findOne(id);
         return ResponseUtil.wrapOrNotFound(organogramaDTO);
+    }
+
+    /**
+     * {@code GET  /organogramas/:id} : get the "id" organograma.
+     *
+     * @param empresaId the id of the Empresa to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the organogramaDTO, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/organogramas/empresaId/{empresaId}")
+    public ResponseEntity<List<OrganogramaDTO>> getOrganogramaListaByEmpresa(@PathVariable Long empresaId) {
+        log.debug("REST request to get Funcionario : {}", empresaId);
+        List<OrganogramaDTO> listaOrganogramaDTO = organogramaService.findByEmpresa(empresaId);
+        return ResponseEntity.ok().body(listaOrganogramaDTO);
+    }
+
+    @GetMapping("/organogramas/array/empresaId/{empresaId}")
+    public ResponseEntity<List<OrganogramaArrayDTO>> getOrganogramaTreeByEmpresa(@PathVariable Long empresaId) {
+        log.debug("REST request to get Funcionario : {}", empresaId);
+        List<OrganogramaArrayDTO> listaOrganogramaArrayDTO = organogramaService.findArrayByEmpresa(empresaId);
+        return ResponseEntity.ok().body(listaOrganogramaArrayDTO);
     }
 
     /**

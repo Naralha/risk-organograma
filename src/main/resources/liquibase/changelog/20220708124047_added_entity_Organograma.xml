@@ -15,10 +15,10 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="idn_var_organograma" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="idn_var_empresa" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="n_var_nome" type="varchar(255)">
                 <constraints nullable="false" />
@@ -30,10 +30,10 @@
                 <constraints nullable="true" />
             </column>
             <column name="idnvar_usuario" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="idn_var_roof_top" type="varchar(255)">
-                <constraints nullable="false" />
+                <constraints nullable="true" />
             </column>
             <column name="empresa_id" type="bigint">
                 <constraints nullable="true" />

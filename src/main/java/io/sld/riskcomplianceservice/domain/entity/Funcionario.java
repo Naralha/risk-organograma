@@ -49,14 +49,6 @@ public class Funcionario implements Serializable {
     @Column(name = "n_var_descricao")
     private String nVarDescricao;
 
-//    @NotNull
-//    @Column(name = "idn_var_empresa", nullable = false)
-//    private String idnVarEmpresa;
-
-    @NotNull
-    @Column(name = "idnvar_usuario", nullable = false)
-    private String idnvarUsuario;
-
     @OneToMany(mappedBy = "funcionario")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "funcionario", "organograma", "usuario" }, allowSetters = true)
@@ -154,14 +146,6 @@ public class Funcionario implements Serializable {
 //    }
 
 
-
-    public Funcionario idnvarUsuario(String idnvarUsuario) {
-        this.setIdnvarUsuario(idnvarUsuario);
-        return this;
-    }
-
-
-
     public void setFuncionarioOrganogramas(Set<FuncionarioOrganograma> funcionarioOrganogramas) {
         if (this.funcionarioOrganogramas != null) {
             this.funcionarioOrganogramas.forEach(i -> i.setFuncionario(null));
@@ -229,8 +213,6 @@ public class Funcionario implements Serializable {
             ", nVarNome='" + getNVarNome() + "'" +
             ", nVarEmail='" + getNVarEmail() + "'" +
             ", nVarDescricao='" + getNVarDescricao() + "'" +
-//            ", idnVarEmpresa='" + getIdnVarEmpresa() + "'" +
-            ", idnvarUsuario='" + getIdnvarUsuario() + "'" +
             "}";
     }
 }

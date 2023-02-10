@@ -34,11 +34,11 @@ public class Organograma implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
+//    @NotNull
     @Column(name = "idn_var_organograma", nullable = false)
     private String idnVarOrganograma;
 
-    @NotNull
+//    @NotNull
     @Column(name = "idn_var_empresa", nullable = false)
     private String idnVarEmpresa;
 
@@ -52,11 +52,11 @@ public class Organograma implements Serializable {
     @Column(name = "idn_var_pai_organograma")
     private String idnVarPaiOrganograma;
 
-    @NotNull
+//    @NotNull
     @Column(name = "idnvar_usuario", nullable = false)
     private String idnvarUsuario;
 
-    @NotNull
+//    @NotNull
     @Column(name = "idn_var_roof_top", nullable = false)
     private String idnVarRoofTop;
 
