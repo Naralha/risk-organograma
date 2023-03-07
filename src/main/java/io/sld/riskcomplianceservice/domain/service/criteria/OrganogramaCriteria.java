@@ -4,16 +4,10 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import io.sld.riskcomplianceservice.domain.entity.Organograma;
+import io.sld.riskcomplianceservice.domain.service.filter.*;
 import io.sld.riskcomplianceservice.resource.OrganogramaResource;
 import org.springdoc.api.annotations.ParameterObject;
 import io.sld.riskcomplianceservice.domain.service.criteria.Criteria;
-import io.sld.riskcomplianceservice.domain.service.filter.BooleanFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.DoubleFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.Filter;
-import io.sld.riskcomplianceservice.domain.service.filter.FloatFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.IntegerFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.LongFilter;
-import io.sld.riskcomplianceservice.domain.service.filter.StringFilter;
 
 /**
  * Criteria class for the {@link Organograma} entity. This class is used
@@ -31,7 +25,7 @@ public class OrganogramaCriteria implements Serializable, Criteria {
 
     private LongFilter id;
 
-    private StringFilter idnVarOrganograma;
+    private UUIDFilter idnVarOrganograma;
 
     private StringFilter idnVarEmpresa;
 
@@ -99,18 +93,18 @@ public class OrganogramaCriteria implements Serializable, Criteria {
         this.id = id;
     }
 
-    public StringFilter getIdnVarOrganograma() {
+    public UUIDFilter getIdnVarOrganograma() {
         return idnVarOrganograma;
     }
 
-    public StringFilter idnVarOrganograma() {
+    public UUIDFilter idnVarOrganograma() {
         if (idnVarOrganograma == null) {
-            idnVarOrganograma = new StringFilter();
+            idnVarOrganograma = new UUIDFilter();
         }
         return idnVarOrganograma;
     }
 
-    public void setIdnVarOrganograma(StringFilter idnVarOrganograma) {
+    public void setIdnVarOrganograma(UUIDFilter idnVarOrganograma) {
         this.idnVarOrganograma = idnVarOrganograma;
     }
 

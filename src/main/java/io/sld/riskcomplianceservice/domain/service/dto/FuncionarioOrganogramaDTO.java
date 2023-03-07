@@ -23,13 +23,13 @@ public class FuncionarioOrganogramaDTO implements Serializable {
 
     private Long id;
 
-    @NotNull
+//    @NotNull
     private String idnVarFuncionario;
 
-    @NotNull
+//    @NotNull
     private String idnVarOrganograma;
 
-    @NotNull
+//    @NotNull
     private String idnvarUsuario;
 
     private FuncionarioDTO funcionario;

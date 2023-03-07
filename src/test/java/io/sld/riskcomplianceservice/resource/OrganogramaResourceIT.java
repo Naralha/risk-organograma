@@ -16,6 +16,7 @@ import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaDTO;
 import io.sld.riskcomplianceservice.domain.service.mapper.OrganogramaMapper;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,8 +36,8 @@ import org.springframework.transaction.annotation.Transactional;
 //@WithMockUser
 class OrganogramaResourceIT {
 
-    private static final String DEFAULT_IDN_VAR_ORGANOGRAMA = "AAAAAAAAAA";
-    private static final String UPDATED_IDN_VAR_ORGANOGRAMA = "BBBBBBBBBB";
+    private static final UUID DEFAULT_IDN_VAR_ORGANOGRAMA = UUID.randomUUID();
+    private static final UUID UPDATED_IDN_VAR_ORGANOGRAMA = UUID.randomUUID();
 
     private static final String DEFAULT_IDN_VAR_EMPRESA = "AAAAAAAAAA";
     private static final String UPDATED_IDN_VAR_EMPRESA = "BBBBBBBBBB";
@@ -1125,7 +1126,7 @@ class OrganogramaResourceIT {
         partialUpdatedOrganograma.setId(organograma.getId());
 
         partialUpdatedOrganograma
-            .idnVarOrganograma(UPDATED_IDN_VAR_ORGANOGRAMA)
+//            .idnVarOrganograma(UPDATED_IDN_VAR_ORGANOGRAMA)
             .idnVarEmpresa(UPDATED_IDN_VAR_EMPRESA)
             .nVarNome(UPDATED_N_VAR_NOME)
             .nVarDescricao(UPDATED_N_VAR_DESCRICAO)

@@ -32,7 +32,7 @@ import io.sld.riskcomplianceservice.resource.utils.ResponseUtil;
  * REST controller for managing {@link FuncionarioOrganograma}.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/funcionario-organogramas")
 public class FuncionarioOrganogramaResource {
 
     private final Logger log = LoggerFactory.getLogger(FuncionarioOrganogramaResource.class);
@@ -65,7 +65,7 @@ public class FuncionarioOrganogramaResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new funcionarioOrganogramaDTO, or with status {@code 400 (Bad Request)} if the funcionarioOrganograma has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/funcionario-organogramas")
+    @PostMapping
     public ResponseEntity<FuncionarioOrganogramaDTO> createFuncionarioOrganograma(
         @Valid @RequestBody FuncionarioOrganogramaDTO funcionarioOrganogramaDTO
     ) throws URISyntaxException {
@@ -90,7 +90,7 @@ public class FuncionarioOrganogramaResource {
      * or with status {@code 500 (Internal Server Error)} if the funcionarioOrganogramaDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/funcionario-organogramas/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<FuncionarioOrganogramaDTO> updateFuncionarioOrganograma(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody FuncionarioOrganogramaDTO funcionarioOrganogramaDTO
@@ -125,7 +125,7 @@ public class FuncionarioOrganogramaResource {
      * or with status {@code 500 (Internal Server Error)} if the funcionarioOrganogramaDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/funcionario-organogramas/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<FuncionarioOrganogramaDTO> partialUpdateFuncionarioOrganograma(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody FuncionarioOrganogramaDTO funcionarioOrganogramaDTO
@@ -157,7 +157,7 @@ public class FuncionarioOrganogramaResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of funcionarioOrganogramas in body.
      */
-    @GetMapping("/funcionario-organogramas")
+    @GetMapping
     public ResponseEntity<List<FuncionarioOrganogramaDTO>> getAllFuncionarioOrganogramas(
         FuncionarioOrganogramaCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
@@ -174,7 +174,7 @@ public class FuncionarioOrganogramaResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
-    @GetMapping("/funcionario-organogramas/count")
+    @GetMapping("/count")
     public ResponseEntity<Long> countFuncionarioOrganogramas(FuncionarioOrganogramaCriteria criteria) {
         log.debug("REST request to count FuncionarioOrganogramas by criteria: {}", criteria);
         return ResponseEntity.ok().body(funcionarioOrganogramaQueryService.countByCriteria(criteria));
@@ -186,7 +186,7 @@ public class FuncionarioOrganogramaResource {
      * @param id the id of the funcionarioOrganogramaDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the funcionarioOrganogramaDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/funcionario-organogramas/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<FuncionarioOrganogramaDTO> getFuncionarioOrganograma(@PathVariable Long id) {
         log.debug("REST request to get FuncionarioOrganograma : {}", id);
         Optional<FuncionarioOrganogramaDTO> funcionarioOrganogramaDTO = funcionarioOrganogramaService.findOne(id);
@@ -199,7 +199,7 @@ public class FuncionarioOrganogramaResource {
      * @param id the id of the funcionarioOrganogramaDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/funcionario-organogramas/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFuncionarioOrganograma(@PathVariable Long id) {
         log.debug("REST request to delete FuncionarioOrganograma : {}", id);
         funcionarioOrganogramaService.delete(id);

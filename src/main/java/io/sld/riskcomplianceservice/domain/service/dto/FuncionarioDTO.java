@@ -24,10 +24,10 @@ public class FuncionarioDTO implements Serializable {
 
     private UUID idnVarFuncionario;
 
-    @NotNull
+//    @NotNull
     private String nVarNome;
 
-    @NotNull
+//    @NotNull
     private String nVarEmail;
 
     private String nVarDescricao;

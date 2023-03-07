@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -36,7 +37,7 @@ public class Organograma implements Serializable {
 
 //    @NotNull
     @Column(name = "idn_var_organograma", nullable = false)
-    private String idnVarOrganograma;
+    private UUID idnVarOrganograma;
 
 //    @NotNull
     @Column(name = "idn_var_empresa", nullable = false)
@@ -125,16 +126,16 @@ public class Organograma implements Serializable {
         this.id = id;
     }
 
-    public String getIdnVarOrganograma() {
+    public UUID getIdnVarOrganograma() {
         return this.idnVarOrganograma;
     }
 
-    public Organograma idnVarOrganograma(String idnVarOrganograma) {
+    public Organograma idnVarOrganograma(UUID idnVarOrganograma) {
         this.setIdnVarOrganograma(idnVarOrganograma);
         return this;
     }
 
-    public void setIdnVarOrganograma(String idnVarOrganograma) {
+    public void setIdnVarOrganograma(UUID idnVarOrganograma) {
         this.idnVarOrganograma = idnVarOrganograma;
     }
 

@@ -5,8 +5,7 @@ import io.sld.riskcomplianceservice.domain.repository.OrganogramaRepository;
 import io.sld.riskcomplianceservice.domain.service.OrganogramaQueryService;
 import io.sld.riskcomplianceservice.domain.service.OrganogramaService;
 import io.sld.riskcomplianceservice.domain.service.criteria.OrganogramaCriteria;
-import io.sld.riskcomplianceservice.domain.service.dto.FuncionarioDTO;
-import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaArrayDTO;
+import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaTreeDTO;
 import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaDTO;
 import io.sld.riskcomplianceservice.resource.errors.BadRequestAlertException;
 
@@ -35,7 +34,7 @@ import io.sld.riskcomplianceservice.resource.utils.ResponseUtil;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/organograma")
 public class OrganogramaResource {
 
     private final Logger log = LoggerFactory.getLogger(OrganogramaResource.class);
@@ -64,7 +63,7 @@ public class OrganogramaResource {
     /**
      * {@code POST  /organogramas} : Create a new organograma.
      *
-     * @param organogramaArrayDTO the organogramaArrayDTO to create.
+     * @param organogramaTreeDTO the organogramaTreeDTO to create.
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new organogramaDTO, or with status {@code 400 (Bad Request)} if the organograma has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
@@ -81,15 +80,15 @@ public class OrganogramaResource {
 //            .body(result);
 //    }
 
-    @PostMapping("/organogramas")
-    public ResponseEntity<OrganogramaArrayDTO> createOrganogram(@RequestBody OrganogramaArrayDTO organogramaArrayDTO) throws URISyntaxException {
-        log.debug("REST request to save Organograma : {}", organogramaArrayDTO);
+    @PostMapping
+    public ResponseEntity<OrganogramaTreeDTO> createOrganograma(@RequestBody OrganogramaTreeDTO organogramaTreeDTO) throws URISyntaxException {
+        log.debug("REST request to save Organograma : {}", organogramaTreeDTO);
 
-        organogramaService.save(organogramaArrayDTO);
+        organogramaService.save(organogramaTreeDTO);
 
         return ResponseEntity.created(new URI("/api/organogramas/"))
-                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, String.valueOf(organogramaArrayDTO)))
-                .body(organogramaArrayDTO);
+                .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, String.valueOf(organogramaTreeDTO)))
+                .body(organogramaTreeDTO);
     }
 
     /**
@@ -102,7 +101,7 @@ public class OrganogramaResource {
      * or with status {@code 500 (Internal Server Error)} if the organogramaDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/organogramas/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<OrganogramaDTO> updateOrganograma(
         @PathVariable(value = "id", required = false) final Long id,
         @Valid @RequestBody OrganogramaDTO organogramaDTO
@@ -137,7 +136,7 @@ public class OrganogramaResource {
      * or with status {@code 500 (Internal Server Error)} if the organogramaDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/organogramas/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<OrganogramaDTO> partialUpdateOrganograma(
         @PathVariable(value = "id", required = false) final Long id,
         @NotNull @RequestBody OrganogramaDTO organogramaDTO
@@ -169,7 +168,7 @@ public class OrganogramaResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of organogramas in body.
      */
-    @GetMapping("/organogramas")
+    @GetMapping()
     public ResponseEntity<List<OrganogramaDTO>> getAllOrganogramas(
         OrganogramaCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
@@ -186,7 +185,7 @@ public class OrganogramaResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
-    @GetMapping("/organogramas/count")
+    @GetMapping("/count")
     public ResponseEntity<Long> countOrganogramas(OrganogramaCriteria criteria) {
         log.debug("REST request to count Organogramas by criteria: {}", criteria);
         return ResponseEntity.ok().body(organogramaQueryService.countByCriteria(criteria));
@@ -198,7 +197,7 @@ public class OrganogramaResource {
      * @param id the id of the organogramaDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the organogramaDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/organogramas/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<OrganogramaDTO> getOrganograma(@PathVariable Long id) {
         log.debug("REST request to get Organograma : {}", id);
         Optional<OrganogramaDTO> organogramaDTO = organogramaService.findOne(id);
@@ -211,18 +210,18 @@ public class OrganogramaResource {
      * @param empresaId the id of the Empresa to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the organogramaDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/organogramas/empresaId/{empresaId}")
+    @GetMapping("/empresaId/{empresaId}")
     public ResponseEntity<List<OrganogramaDTO>> getOrganogramaListaByEmpresa(@PathVariable Long empresaId) {
         log.debug("REST request to get Funcionario : {}", empresaId);
-        List<OrganogramaDTO> listaOrganogramaDTO = organogramaService.findByEmpresa(empresaId);
-        return ResponseEntity.ok().body(listaOrganogramaDTO);
+
+        return ResponseEntity.ok().body(organogramaService.findByEmpresa(empresaId));
     }
 
-    @GetMapping("/organogramas/array/empresaId/{empresaId}")
-    public ResponseEntity<List<OrganogramaArrayDTO>> getOrganogramaTreeByEmpresa(@PathVariable Long empresaId) {
+    @GetMapping("/array/empresaId/{empresaId}")
+    public ResponseEntity<List<OrganogramaTreeDTO>> getOrganogramaTreeByEmpresa(@PathVariable Long empresaId) {
         log.debug("REST request to get Funcionario : {}", empresaId);
-        List<OrganogramaArrayDTO> listaOrganogramaArrayDTO = organogramaService.findArrayByEmpresa(empresaId);
-        return ResponseEntity.ok().body(listaOrganogramaArrayDTO);
+
+        return ResponseEntity.ok().body(organogramaService.findTreeByEmpresa(empresaId));
     }
 
     /**
@@ -231,7 +230,7 @@ public class OrganogramaResource {
      * @param id the id of the organogramaDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/organogramas/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrganograma(@PathVariable Long id) {
         log.debug("REST request to delete Organograma : {}", id);
         organogramaService.delete(id);
@@ -240,4 +239,5 @@ public class OrganogramaResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
+
 }

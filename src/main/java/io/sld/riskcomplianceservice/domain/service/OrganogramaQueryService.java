@@ -92,7 +92,7 @@ public class OrganogramaQueryService extends QueryService<Organograma> {
             }
             if (criteria.getIdnVarOrganograma() != null) {
                 specification =
-                    specification.and(buildStringSpecification(criteria.getIdnVarOrganograma(), Organograma_.idnVarOrganograma));
+                    specification.and(buildSpecification(criteria.getIdnVarOrganograma(), Organograma_.idnVarOrganograma));
             }
             if (criteria.getIdnVarEmpresa() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getIdnVarEmpresa(), Organograma_.idnVarEmpresa));

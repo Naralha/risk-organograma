@@ -9,23 +9,27 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 @ToString(callSuper = true)
 @SuperBuilder(toBuilder = true)
 @NoArgsConstructor
-public class OrganogramaArrayDTO {
+public class OrganogramaTreeDTO {
 
     private Long id;
     private String name;
     private Empresa empresa;
     private String parentId;
-    private List<OrganogramaArrayDTO> children;
+    private List<OrganogramaTreeDTO> children;
 
-    public OrganogramaArrayDTO(Long id, String name) {
+    public OrganogramaTreeDTO(Long id, String name, Long empresaId) {
+        Empresa empresa = new Empresa();
         this.id = id;
         this.name = name;
+        this.empresa = empresa;
+        this.empresa.setId(empresaId);
         this.children = new ArrayList<>();
     }
 

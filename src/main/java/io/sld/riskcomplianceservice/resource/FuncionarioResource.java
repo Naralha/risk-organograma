@@ -23,6 +23,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import io.sld.riskcomplianceservice.resource.utils.HeaderUtil;
@@ -34,7 +37,7 @@ import io.sld.riskcomplianceservice.resource.utils.ResponseUtil;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/api")
+@RequestMapping("/api/funcionarios")
 public class FuncionarioResource {
 
     private final Logger log = LoggerFactory.getLogger(FuncionarioResource.class);
@@ -67,7 +70,7 @@ public class FuncionarioResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new funcionarioDTO, or with status {@code 400 (Bad Request)} if the funcionario has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("/funcionarios")
+    @PostMapping
     public ResponseEntity<FuncionarioDTO> createFuncionario(@Valid @RequestBody FuncionarioDTO funcionarioDTO) throws URISyntaxException {
         log.debug("REST request to save Funcionario : {}", funcionarioDTO);
         if (funcionarioDTO.getIdnVarFuncionario() != null) {
@@ -90,7 +93,7 @@ public class FuncionarioResource {
      * or with status {@code 500 (Internal Server Error)} if the funcionarioDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/funcionarios/{idnVarFuncionario}")
+    @PutMapping("/{idnVarFuncionario}")
     public ResponseEntity<FuncionarioDTO>  updateFuncionario(
         @PathVariable(value = "idnVarFuncionario", required = false) final UUID idnVarFuncionario,
         @Valid @RequestBody FuncionarioDTO funcionarioDTO
@@ -126,7 +129,7 @@ public class FuncionarioResource {
      * or with status {@code 500 (Internal Server Error)} if the funcionarioDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/funcionarios/{idnVarFuncionario}", consumes = { "application/json", "application/merge-patch+json" })
+    @PatchMapping(value = "/{idnVarFuncionario}", consumes = { "application/json", "application/merge-patch+json" })
     public ResponseEntity<FuncionarioDTO> partialUpdateFuncionario(
         @PathVariable(value = "idnVarFuncionario", required = false) final UUID idnVarFuncionario,
         @NotNull @RequestBody FuncionarioDTO funcionarioDTO
@@ -159,7 +162,7 @@ public class FuncionarioResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of funcionarios in body.
      */
-    @GetMapping("/funcionarios")
+    @GetMapping
     public ResponseEntity<List<FuncionarioDTO>> getAllFuncionarios(
         FuncionarioCriteria criteria,
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
@@ -176,7 +179,7 @@ public class FuncionarioResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
-    @GetMapping("/funcionarios/count")
+    @GetMapping("/count")
     public ResponseEntity<Long> countFuncionarios(FuncionarioCriteria criteria) {
         log.debug("REST request to count Funcionarios by criteria: {}", criteria);
         return ResponseEntity.ok().body(funcionarioQueryService.countByCriteria(criteria));
@@ -188,7 +191,7 @@ public class FuncionarioResource {
      * @param idnVarFuncionario the id of the funcionarioDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the funcionarioDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/funcionarios/{idnVarFuncionario}")
+    @GetMapping("/{idnVarFuncionario}")
     public ResponseEntity<FuncionarioDTO> getFuncionario(@PathVariable UUID idnVarFuncionario) {
         log.debug("REST request to get Funcionario : {}", idnVarFuncionario);
         Optional<FuncionarioDTO> funcionarioDTO = funcionarioService.findOne(idnVarFuncionario);
@@ -201,7 +204,7 @@ public class FuncionarioResource {
      * @param empresaId the empresaId of the empresa to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the funcionarioDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/funcionarios/empresaId/{empresaId}")
+    @GetMapping("/empresaId/{empresaId}")
     public ResponseEntity<List<FuncionarioDTO>> getFuncionarioByEmpresa(@PathVariable Long empresaId) {
         log.debug("REST request to get Funcionario : {}", empresaId);
         List<FuncionarioDTO> listafuncionarioDTO = funcionarioService.findByEmpresa(empresaId);
@@ -214,7 +217,7 @@ public class FuncionarioResource {
      * @param idnVarFuncionario the uuid of the funcionarioDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/funcionarios/{idnVarFuncionario}")
+    @DeleteMapping("/{idnVarFuncionario}")
     public ResponseEntity<Void> deleteFuncionario(@PathVariable UUID idnVarFuncionario) {
         log.debug("REST request to delete Funcionario : {}", idnVarFuncionario);
         funcionarioService.delete(idnVarFuncionario);

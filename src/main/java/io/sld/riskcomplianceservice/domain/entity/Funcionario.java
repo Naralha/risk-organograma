@@ -49,6 +49,9 @@ public class Funcionario implements Serializable {
     @Column(name = "n_var_descricao")
     private String nVarDescricao;
 
+    //TODO private String idUsuario;
+    //TODO private String matricula;
+
     @OneToMany(mappedBy = "funcionario")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "funcionario", "organograma", "usuario" }, allowSetters = true)

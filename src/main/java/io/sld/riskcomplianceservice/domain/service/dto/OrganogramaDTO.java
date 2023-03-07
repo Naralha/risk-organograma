@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.UUID;
 import javax.validation.constraints.*;
 
 /**
@@ -24,12 +25,12 @@ public class OrganogramaDTO implements Serializable {
     private Long id;
 
 //    @NotNull
-    private String idnVarOrganograma;
+    private UUID idnVarOrganograma;
 
 //    @NotNull
     private String idnVarEmpresa;
 
-    @NotNull
+//    @NotNull
     private String nVarNome;
 
     private String nVarDescricao;

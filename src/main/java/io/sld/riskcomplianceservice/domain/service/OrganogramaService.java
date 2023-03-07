@@ -3,13 +3,14 @@ package io.sld.riskcomplianceservice.domain.service;
 import io.sld.riskcomplianceservice.domain.entity.Empresa;
 import io.sld.riskcomplianceservice.domain.entity.Organograma;
 import io.sld.riskcomplianceservice.domain.repository.OrganogramaRepository;
-import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaArrayDTO;
+import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaTreeDTO;
 import io.sld.riskcomplianceservice.domain.service.dto.OrganogramaDTO;
 import io.sld.riskcomplianceservice.domain.service.mapper.OrganogramaMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -40,7 +41,7 @@ public class OrganogramaService {
     /**
      * Save a organograma.
      *
-     * @param organogramaArrayDTO the entity to save.
+     * @param organogramaTreeDTO the entity to save.
      * @return the persisted entity.
      */
 //    public OrganogramaDTO save(OrganogramaDTO organogramaDTO) {
@@ -50,9 +51,10 @@ public class OrganogramaService {
 //        return organogramaMapper.toDto(organograma);
 //    }
 
-    public OrganogramaArrayDTO save(OrganogramaArrayDTO organogramaArrayDTO) {
-        varrerLista(organogramaArrayDTO, null);
-        return organogramaArrayDTO;
+    public OrganogramaTreeDTO save(OrganogramaTreeDTO organogramaTreeDTO) {
+        deletarTree(organogramaTreeDTO.getEmpresa());
+        salvarTree(organogramaTreeDTO, null);
+        return organogramaTreeDTO;
     }
 
     /**
@@ -129,53 +131,79 @@ public class OrganogramaService {
         return organogramaRepository.findByEmpresa(empresa).get().stream().map(organogramaMapper::toDto).collect(Collectors.toList());
     }
 
-    public List<OrganogramaArrayDTO> findArrayByEmpresa(Long empresaId) {
+    public List<OrganogramaTreeDTO> findTreeByEmpresa(Long empresaId) {
         List<OrganogramaDTO> listaOrganograma = findByEmpresa(empresaId);
-        List<OrganogramaArrayDTO> nodes = new ArrayList<>();
+        List<OrganogramaTreeDTO> nodes = new ArrayList<>();
 
-        OrganogramaArrayDTO organogramaArrayDTO= new OrganogramaArrayDTO();
+        OrganogramaTreeDTO organogramaTreeDTO = new OrganogramaTreeDTO();
+        Empresa empresa = new Empresa();
+        empresa.setId(listaOrganograma.get(0).getEmpresa().getId());
 
-        organogramaArrayDTO.setId(listaOrganograma.get(0).getId());
-        organogramaArrayDTO.setName(listaOrganograma.get(0).getNVarNome());
-        organogramaArrayDTO.setChildren(new ArrayList<>());
+//        organogramaTreeDTO.setId(listaOrganograma.get(0).getId());
+        organogramaTreeDTO.setId(listaOrganograma.get(0).getId());
+        organogramaTreeDTO.setName(listaOrganograma.get(0).getNVarNome());
+        organogramaTreeDTO.setEmpresa(empresa);
+        organogramaTreeDTO.setChildren(new ArrayList<>());
 
-        criarTree(listaOrganograma, organogramaArrayDTO);
-        nodes.add(organogramaArrayDTO);
+        criarTree(listaOrganograma, organogramaTreeDTO);
+        nodes.add(organogramaTreeDTO);
         return nodes;
     }
 
-    private void criarTree(List<OrganogramaDTO> listaOrganograma, OrganogramaArrayDTO organogramaArrayDTO) {
-        List<OrganogramaDTO> novaListaOrganograma = new ArrayList<>();
-
+    private void criarTree(List<OrganogramaDTO> listaOrganograma, OrganogramaTreeDTO organogramaTreeDTO) {
         for(OrganogramaDTO organogramaDTO : listaOrganograma){
-            if(String.valueOf(organogramaArrayDTO.getId()).equals(organogramaDTO.getIdnVarPaiOrganograma())){
-                OrganogramaArrayDTO novoOrganogramaArrayDTO = new OrganogramaArrayDTO(organogramaDTO.getId(), organogramaDTO.getNVarNome());
-                organogramaArrayDTO.getChildren().add(novoOrganogramaArrayDTO);
+            if(String.valueOf(organogramaTreeDTO.getId()).equals(organogramaDTO.getIdnVarPaiOrganograma())){
+//                OrganogramaTreeDTO novoOrganogramaTreeDTO = new OrganogramaTreeDTO(organogramaDTO.getId(), organogramaDTO.getNVarNome(), organogramaDTO.getEmpresa().getId());
+                OrganogramaTreeDTO novoOrganogramaTreeDTO = new OrganogramaTreeDTO(organogramaDTO.getId(), organogramaDTO.getNVarNome(), organogramaDTO.getEmpresa().getId());
+                organogramaTreeDTO.getChildren().add(novoOrganogramaTreeDTO);
             }
         }
 
-        for(OrganogramaArrayDTO filho : organogramaArrayDTO.getChildren()){
+        for(OrganogramaTreeDTO filho : organogramaTreeDTO.getChildren()){
             criarTree(listaOrganograma, filho);
         }
     }
 
-
-
-
-    private void varrerLista(OrganogramaArrayDTO organogramaArrayDTO, Long parentId) {
+//    private void salvarTree(OrganogramaTreeDTO organogramaTreeDTO, Long parentId) {
+//        Organograma organograma = new Organograma();
+//        organograma.setnVarNome(organogramaTreeDTO.getName());
+//        organograma.setEmpresa(organogramaTreeDTO.getEmpresa());
+//        organograma.setIdnVarOrganograma(UUID.randomUUID());
+//        if(parentId != null){
+//            organograma.setIdnVarPaiOrganograma(String.valueOf(parentId));
+//            organogramaTreeDTO.setParentId(String.valueOf(parentId));
+//        }
+//
+//        organograma = organogramaRepository.save(organograma);
+//
+//        organogramaTreeDTO.setId(organograma.getId());
+//        if(organogramaTreeDTO.getChildren() != null){
+//            for(OrganogramaTreeDTO child : organogramaTreeDTO.getChildren()){
+//                salvarTree(child, organograma.getId());
+//            }
+//        }
+//    }
+    private void salvarTree(OrganogramaTreeDTO organogramaTreeDTO, Long parentId) {
         Organograma organograma = new Organograma();
-        organograma.setnVarNome(organogramaArrayDTO.getName());
-        organograma.setEmpresa(organogramaArrayDTO.getEmpresa());
+        organograma.setnVarNome(organogramaTreeDTO.getName());
+        organograma.setEmpresa(organogramaTreeDTO.getEmpresa());
+        organograma.setIdnVarOrganograma(UUID.randomUUID());
         if(parentId != null){
             organograma.setIdnVarPaiOrganograma(String.valueOf(parentId));
-            organogramaArrayDTO.setParentId(String.valueOf(parentId));
+            organogramaTreeDTO.setParentId(String.valueOf(parentId));
         }
+
         organograma = organogramaRepository.save(organograma);
-        organogramaArrayDTO.setId(organograma.getId());
-        if(organogramaArrayDTO.getChildren() != null){
-            for(OrganogramaArrayDTO child : organogramaArrayDTO.getChildren()){
-                varrerLista(child, organograma.getId());
+
+        organogramaTreeDTO.setId(organograma.getId());
+        if(organogramaTreeDTO.getChildren() != null){
+            for(OrganogramaTreeDTO child : organogramaTreeDTO.getChildren()){
+                salvarTree(child, organograma.getId());
             }
         }
+    }
+
+    private void deletarTree(Empresa empresa) {
+        organogramaRepository.deleteCustomByEmpresa(empresa.getId());
     }
 }

@@ -14,7 +14,7 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="idn_var_organograma" type="varchar(255)">
+            <column name="idn_var_organograma" type="uuid">
                 <constraints nullable="true" />
             </column>
             <column name="idn_var_empresa" type="varchar(255)">
