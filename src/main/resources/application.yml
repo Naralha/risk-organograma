@@ -1,50 +1,54 @@
 spring:
-  version: 0.1
   application:
-    name: RISK-ORGANOGRAMA
-  config:
-    import: "optional:configserver:http://localhost:8088"
+    name: risk
+  autoconfigure:
+    exclude: org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration
   datasource:
-    url: jdbc:h2:file:./target/h2db/db/usermanagementservice;DB_CLOSE_DELAY=-1
-    driverClassName: org.h2.Driver
-    username: usermanagementservice
-    password:
+    url: ${SPRING_DATASOURCE_URL:jdbc:sqlserver://localhost:1433;databaseName=ElyxDB;encrypt=false;trustServerCertificate=true}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-  h2:
-    console:
-      # disable spring boot built-in h2-console since we start it manually with correct configuration
-      enabled: true
-  liquibase:
-    # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
-    change-log: classpath:liquibase/master.xml
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    validate-migration-naming: true
+    placeholders:
+      risk_schema_initialization: "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = 'risk') EXEC('CREATE SCHEMA risk')"
+
 server:
-  servlet:
-    context-path: /organograma
-  port: 8081
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://eureka-server:8761/eureka
-#      defaultZone: http://localhost:8761/eureka
-#  instance:
-#      preferIpAddress: true
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: when_authorized
 
-#OpenApi configurations
 springdoc:
-  pathsToMatch: /api/**
+  paths-to-match: /api/**
   swagger-ui:
     disable-swagger-default-url: true
     tags-sorter: alpha
     operations-sorter: alpha
 
-#Swagger configurations
 swagger:
-  title: ${spring.application.name} API
-  description: ${spring.application.name} API documentation
-  version: ${application.version}
+  title: Risk Organograma API
+  description: API de gestão organizacional da plataforma Risk
+  version: ${APP_VERSION:0.0.1-SNAPSHOT}
   terms-of-service-url:
   contact-name:
   contact-url:
@@ -54,20 +58,6 @@ swagger:
   external-documentation:
   external-documentation-url:
 
-#Logbook
-logbook:
-  include:
-    - /organograma/**
-  filter.enabled: true
-  secure-filter.enabled: true
-  obfuscate:
-    headers:
-    parameters:
-
 logging:
-  level:
-    org:
-      zalando:
-        logbook: trace
-
-
+  pattern:
+    correlation: "[%X{traceId:-},%X{spanId:-}] "

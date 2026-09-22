@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./target/h2db/risk;MODE=MSSQLServer;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: risk
+    password:
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  flyway:
+    locations: classpath:db/migration,classpath:db/dev
+    placeholders:
+      risk_schema_initialization: "CREATE SCHEMA IF NOT EXISTS risk"
+
+management:
+  endpoint:
+    health:
+      show-details: always
